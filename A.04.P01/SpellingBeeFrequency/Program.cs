@@ -5,14 +5,14 @@ using System.Linq;
 
 internal class Program {
    private static void Main (string[] args) {
-      Dictionary<char, int> charFrequency = new ();
-      foreach (var character in File.ReadAllText ("C:/etc/words.txt")) {
-         if (character >= 'A' && character <= 'Z')
-            charFrequency[character] = charFrequency.ContainsKey (character) ? charFrequency[character] += 1 : 0;
+      Dictionary<char, int> dict = new ();
+      foreach (var ch in File.ReadAllText ("C:/etc/words.txt")) {
+         if (ch >= 'A' && ch <= 'Z')
+            dict[ch] = dict.TryGetValue (ch, out var val) ? dict[ch] = val + 1 : 1;
       }
-      charFrequency = charFrequency.OrderByDescending (pair => pair.Value).ToDictionary (pair => pair.Key, pair => pair.Value);
-      int padLength = charFrequency.Values.First ().ToString ().Length;
-      foreach (var (key, value) in charFrequency.Take (7))
-         Console.WriteLine ($"{key,2} {value.ToString ().PadLeft (padLength)}");
+      dict = dict.OrderByDescending (p => p.Value).ToDictionary (k => k.Key, p => p.Value);
+      int len = dict.Values.First ().ToString ().Length;
+      foreach (var (k, val) in dict.Take (7))
+         Console.WriteLine ($"{k,2} {val.ToString ().PadLeft (len)}");
    }
 }
