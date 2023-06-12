@@ -1,7 +1,7 @@
 ﻿internal class Program {
    private static void Main (string[] args) {
-      var testValues = new string[] {"-1.546234E-4","0","0.0", "12345", "0.00000325", "10.54E2", "1.5E2.5", "1.E3", "1.E+3", "12.54e3.", "12.", "12.e1", ".325", " +625 ",
-                                         "6.25e0", "6.0e0", "6.25e-1", "+6.25E1", "*6.25", "1.625", "15a1", "1.567*2", "+-12", "12.-5", ".e1", "-0.325", "  12.456    " };
+      var testValues = new string[] {"10.54E23.4E3","-1.546234E-4","0","0.0", "12345", "0.00000325", "10.54E2", "1.5E2.5", "1.E3", "1.E+3", "12.54e3.", "12.", "12.e1", ".325", " +625 ",
+                                     "6.25e0", "6.0e0", "6.25e-1", "+6.25E1", "*6.25", "10.625", "15a1", "1.567*2", "+-12", "12.-5", ".e1", "-0.325", "  12.456    " };
       foreach (var val in testValues) {
          double.TryParse (val, out double value);
          Console.WriteLine ($"\nText          : \"{val}\"\nCustom Parse  : {Parse (val.Trim ())}\ndouble.Parse  : {value}\n------------\n");
@@ -10,7 +10,7 @@
 
    /// <summary> Parses the given string into double value and returns NaN if parsing fails </summary>
    static double Parse (string str) {
-      int sign = 1, start = 0, length = str.Length, exp = 0, decimals = 0;
+      int sign = 1, start = 0, length = str.Length, exp = 0;
       char ch = str[start];
       if (ch is '-') {
          sign = -1;
@@ -27,20 +27,16 @@
                if (!validDecimal) return double.NaN;
                break;
             case 'e' or 'E':
-               var tmp = Parse (str[(start + 1)..]);
-               if (IsInteger (tmp)) {
-                  for (int j = 0; j < Math.Abs (tmp); j++) {
-                     value *= tmp < 0 ? 0.1 : 10;
-                     decimals++;
-                  }
-               } else
-                  value = double.NaN;
+               var subStr = str[(start + 1)..];
+               if (subStr.Any (c => c is 'e' or 'E' or '.'))
+                  return double.NaN;
+               var tmp = Parse (subStr);
+               value *= Math.Pow (10, tmp);
                start = length;
                break;
             case >= '0' and <= '9':
                if (validDecimal) {
                   exp--;
-                  decimals++;
                   value += num * Math.Pow (10, exp);
                } else
                   value = value * 10 + num;
@@ -48,9 +44,7 @@
             default: return double.NaN;
          }
       }
-      return sign * Math.Round (value, decimals);
+      value = Math.Round (value, 3);
+      return sign * value;
    }
-
-   /// <summary> Returns true if number is integer</summary>
-   static bool IsInteger (double number) => number % 1 == 0;
 }
