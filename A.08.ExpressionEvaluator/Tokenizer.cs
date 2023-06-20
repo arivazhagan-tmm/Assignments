@@ -1,5 +1,4 @@
 ﻿namespace Eval;
-
 class Tokenizer {
    public Tokenizer (Evaluator eval, string text) {
       mText = text; mN = 0; mEval = eval;
@@ -7,22 +6,25 @@ class Tokenizer {
    readonly Evaluator mEval;  // The evaluator that owns this 
    readonly string mText;     // The input text we're parsing through
    int mN;                    // Position within the text
-
+   Token? mPrevToken;
    public Token Next () {
+      Token result = new TEnd ();
       while (mN < mText.Length) {
          char ch = char.ToLower (mText[mN++]);
          switch (ch) {
             case ' ' or '\t': continue;
-            case (>= '0' and <= '9') or '.': return GetNumber ();
-            case '(' or ')': return new TPunctuation (ch);
-            case '+' or '-' or '*' or '/' or '^' or '=': return new TOpArithmetic (mEval, ch);
-            case >= 'a' and <= 'z': return GetIdentifier ();
-            default: return new TError ($"Unknown symbol: {ch}");
+            case (>= '0' and <= '9') or '.': result = GetNumber (); break;
+            case '(' or ')': result = new TPunctuation (ch); break;
+            case '+' or '-' or '*' or '/' or '^' or '=': result = GetIdentifier (ch); break;
+            case >= 'a' and <= 'z': result = GetIdentifier (); break;
+            default: result = new TError ($"Unknown symbol: {ch}"); break;
          }
+         mPrevToken = result;
+         return result;
       }
-      return new TEnd ();
+      mPrevToken = result;
+      return result;
    }
-
    Token GetIdentifier () {
       int start = mN - 1;
       while (mN < mText.Length) {
@@ -35,7 +37,10 @@ class Tokenizer {
       else return new TVariable (mEval, sub);
    }
    readonly string[] mFuncs = { "sin", "cos", "tan", "sqrt", "log", "exp", "asin", "acos", "atan" };
-
+   Token GetIdentifier (char ch) {
+      bool unaryOp = (mPrevToken == null || mPrevToken is TOpArithmetic) && ch is '-' or '+';
+      return unaryOp ? new TOpUnary (mEval, ch) : new TOpArithmetic (mEval, ch);
+   }
    Token GetNumber () {
       int start = mN - 1;
       while (mN < mText.Length) {

@@ -39,8 +39,10 @@ class TOpArithmetic : TOperator {
 
    public double Evaluate (double a, double b) {
       return Op switch {
-         '+' => a + b, '-' => a - b, 
-         '*' => a * b, '/' => a / b,
+         '+' => a + b,
+         '-' => a - b,
+         '*' => a * b,
+         '/' => a / b,
          '^' => Math.Pow (a, b),
          _ => throw new EvalException ($"Unknown operator: {Op}"),
       };
@@ -55,7 +57,7 @@ class TOpFunction : TOperator {
 
    public double Evaluate (double f) {
       return Func switch {
-         "sin" => Math.Sin (D2R (f)), 
+         "sin" => Math.Sin (D2R (f)),
          "cos" => Math.Cos (D2R (f)),
          "tan" => Math.Tan (D2R (f)),
          "sqrt" => Math.Sqrt (f),
@@ -70,6 +72,14 @@ class TOpFunction : TOperator {
       double D2R (double f) => f * Math.PI / 180;
       double R2D (double f) => f * 180 / Math.PI;
    }
+}
+
+class TOpUnary : TOperator {
+   public TOpUnary (Evaluator eval, char ch) : base (eval) => Op = ch;
+   public override int Priority => mEval.BasePriority + 5;
+   public char Op { get; private set; }
+   public double Evaluate (double f) => Op is '-' ? -f : f;
+   public override string ToString () => $"UnaryOp{Op}:{Priority}";
 }
 
 class TPunctuation : Token {
