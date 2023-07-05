@@ -5,11 +5,6 @@ class EvalException : Exception {
 }
 
 class Evaluator {
-
-   readonly Stack<double> mOperands = new ();
-   readonly Stack<TOperator> mOperators = new ();
-   readonly Dictionary<string, double> mVars = new ();
-   public int BasePriority { get; private set; }
    public double Evaluate (string text) {
       List<Token> tokens = new ();
       var tokenizer = new Tokenizer (this, text);
@@ -32,10 +27,12 @@ class Evaluator {
       if (tVariable != null) mVars[tVariable.Name] = f;
       return f;
    }
+   public int BasePriority { get; private set; }
    public double GetVariable (string name) {
       if (mVars.TryGetValue (name, out double f)) return f;
       throw new EvalException ($"Unknown variable: {name}");
    }
+   readonly Dictionary<string, double> mVars = new ();
    void Process (Token token) {
       switch (token) {
          case TNumber num:
@@ -53,6 +50,8 @@ class Evaluator {
             throw new EvalException ($"Unknown token: {token}");
       }
    }
+   readonly Stack<double> mOperands = new ();
+   readonly Stack<TOperator> mOperators = new ();
    void ApplyOperator () {
       var op = mOperators.Pop ();
       var f1 = mOperands.Pop ();
@@ -60,8 +59,7 @@ class Evaluator {
       else if (op is TOpArithmetic arith) {
          var f2 = mOperands.Pop ();
          mOperands.Push (arith.Evaluate (f2, f1));
-      } else if (op is TOpUnary uOp) {
+      } else if (op is TOpUnary uOp)
          mOperands.Push (uOp.Evaluate (f1));
-      }
    }
 }
