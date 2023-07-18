@@ -37,13 +37,17 @@ class Evaluator {
       switch (token) {
          case TNumber num:
             mOperands.Push (num.Value);
+            if (mOperators.Count > 0 && mOperators.Peek () is TOpUnary opUnary)
+               ApplyOperator ();
             break;
          case TOperator op:
-            while (mOperators.Count > 0 && mOperators.Peek ().Priority >= op.Priority)
+            while (BasePriority == 0 && mOperators.Count > 0 && mOperators.Peek ().Priority >= op.Priority)
                ApplyOperator ();
             mOperators.Push (op);
             break;
          case TPunctuation p:
+            if (BasePriority > 0 && p.Punct is ')' && mOperators.Peek ().Priority >= BasePriority)
+               ApplyOperator ();
             BasePriority += p.Punct == '(' ? 10 : -10;
             break;
          default:

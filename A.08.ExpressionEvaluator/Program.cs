@@ -4,7 +4,8 @@ class Program {
    static void Main (string[] args) {
       Console.WriteLine ("_____Test Cases______\n");
       string[] testCases = { "-10+25", "-1*3++4","a=1*+1", "a=1/*2", "a=1/-2", "b=-a/2", "a=-1+2*4--10",
-                             "a=-1+2--3++4*-1*--2", "a=-1+2--3++4*-1*-2", "a=-3*5", "a=3*-8" };
+                             "a=-1+2--3++4*-1*--2", "a=-1+2--3++4*-1*-2", "a=-3*5", "a=3*-8",
+                             "a=-4*(3+5)","a=(3+5)*-4","a=-4*(-3+5)","a=(3-5)*-4","a=(-3*5)*(5*-2)+-6"};
       foreach (var expr in testCases) {
          Console.Write ($"{expr} : ");
          PrintResult (expr);

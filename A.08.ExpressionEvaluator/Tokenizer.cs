@@ -38,7 +38,9 @@ class Tokenizer {
    }
    readonly string[] mFuncs = { "sin", "cos", "tan", "sqrt", "log", "exp", "asin", "acos", "atan" };
    Token GetIdentifier (char ch) {
-      bool unaryOp = (mPrevToken == null || mPrevToken is TOpArithmetic) && ch is '-' or '+';
+      bool unaryOp = (mPrevToken == null || mPrevToken is TOpArithmetic 
+                                         || (mPrevToken is TPunctuation P && P.Punct == '(')) 
+                                         && ch is '-' or '+';
       return unaryOp ? new TOpUnary (mEval, ch) : new TOpArithmetic (mEval, ch);
    }
    Token GetNumber () {
