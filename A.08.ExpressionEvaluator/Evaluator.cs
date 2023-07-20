@@ -41,7 +41,7 @@ class Evaluator {
                ApplyOperator ();
             break;
          case TOperator op:
-            while (BasePriority == 0 && mOperators.Count > 0 && mOperators.Peek ().Priority >= op.Priority)
+            while (BasePriority == 0 && mOperators.Count > 0 && mOperands.Count > 0 && mOperators.Peek ().Priority >= op.Priority)
                ApplyOperator ();
             mOperators.Push (op);
             break;
