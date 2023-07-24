@@ -24,15 +24,16 @@ class TVariable : TNumber {
 
 abstract class TOperator : Token {
    protected TOperator (Evaluator eval) => mEval = eval;
-   public abstract int Priority { get; }
+   public abstract int Priority { get; set; }
    readonly protected Evaluator mEval;
+   protected int mPriority;
 }
 
 class TOpArithmetic : TOperator {
    public TOpArithmetic (Evaluator eval, char ch) : base (eval) => Op = ch;
    public char Op { get; private set; }
    public override string ToString () => $"op:{Op}:{Priority}";
-   public override int Priority => sPriority[Op] + mEval.BasePriority;
+   public override int Priority { get => sPriority[Op] + mPriority; set => mPriority = value; }
    static Dictionary<char, int> sPriority = new () {
       ['+'] = 1, ['-'] = 1, ['*'] = 2, ['/'] = 2, ['^'] = 3, ['='] = 4,
    };
@@ -53,8 +54,7 @@ class TOpFunction : TOperator {
    public TOpFunction (Evaluator eval, string name) : base (eval) => Func = name;
    public string Func { get; private set; }
    public override string ToString () => $"func:{Func}:{Priority}";
-   public override int Priority => 4 + mEval.BasePriority;
-
+   public override int Priority { get => 4 + mPriority; set => mPriority = value; }
    public double Evaluate (double f) {
       return Func switch {
          "sin" => Math.Sin (D2R (f)),
@@ -76,9 +76,9 @@ class TOpFunction : TOperator {
 
 class TOpUnary : TOperator {
    public TOpUnary (Evaluator eval, char ch) : base (eval) => Op = ch;
-   public override int Priority => mEval.BasePriority + 5;
+   public override int Priority { get =>  5 + mPriority; set => mPriority = value; }
    public char Op { get; private set; }
-   public double Evaluate (double f) => Op is '-' ? -f : f;
+   public double Evaluate (double value) => Op is '-' ? -value : value;
    public override string ToString () => $"UnaryOp{Op}:{Priority}";
 }
 
