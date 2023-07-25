@@ -1,28 +1,35 @@
 ﻿using A._10.P02;
+using static System.Console;
 internal class Program {
    private static void Main (string[] args) {
       TDeque<int> q = new ();
       Random r = new ();
       for (int i = 1; i <= 100; i++) {
          var tmp = r.NextDouble ();
+         ForegroundColor = ConsoleColor.Red;
          if (tmp <= 0.25) {
             q.HeadEnqueue (i);
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine ($"HE : {i}");
+            ForegroundColor = ConsoleColor.Green;
+            WriteLine ($"Head Enqueue : {i}");
          } else if (tmp is <= 0.5 and >= 0.25) {
             q.TailEnqueue (i);
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine ($"TE : {i}");
+            ForegroundColor = ConsoleColor.Green;
+            WriteLine ($"Tail Enqueue : {i}");
          } else if (tmp is <= 0.75 and >= 0.5 && !q.IsEmpty) {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine ($"HD : {q.HeadDequeue ()}");
+            WriteLine ($"Head Dequeue : {q.HeadDequeue ()}");
+            if (q.IsEmpty) {
+               ResetColor ();
+               WriteLine ("\n____Queue Empty!____\n");
+            }
          } else if (!q.IsEmpty) {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine ($"TD : {q.TailDequeue ()}");
+            WriteLine ($"Tail Dequeue : {q.TailDequeue ()}");
+            if (q.IsEmpty) {
+               ResetColor ();
+               WriteLine ("\n____Queue Empty!____\n");
+            }
          }
-         Console.ResetColor ();
-         if (q.IsEmpty)
-            Console.WriteLine ("Queue Empty!");
+         ResetColor ();
       }
+      WriteLine ($"\nQueue size is {q.Length}");
    }
 }

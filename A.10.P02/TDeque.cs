@@ -1,39 +1,65 @@
 ﻿namespace A._10.P02 {
    public class TDeque<T> {
-      T[] mData = new T[4];
-      int mUsed;
+      #region Public Properties
       public bool IsEmpty => mUsed == 0;
+      public bool IsFull => mUsed == Length;
       public int Length => mData.Length;
+      #endregion
+
+      #region Public Methods
       public void HeadEnqueue (T t) {
-         if (mUsed == Length)
-            UpdateQueue (2 * mUsed);
-         else if (!IsEmpty)
-            UpdateQueue (Length);
-         mData[0] = t;
+         if (IsFull) UpdateQueue ();
+         if (IsEmpty) ResetPointers ();
+         else if (mHead == 0) mHead = Length - 1;
+         else mHead--;
+         mData[mHead] = t;
          mUsed++;
       }
       public T HeadDequeue () {
          if (IsEmpty) throw new Exception ("Queue Empty");
-         T t = mData[0];
+         T t = mData[mHead];
+         if (mUsed == 1 && mHead == mTail) ResetPointers ();
+         else if (mHead == (Length - 1)) mHead = 0;
+         else mHead++;
          mUsed--;
-         UpdateQueue (Length, 0, 1);
          return t;
       }
       public void TailEnqueue (T t) {
-         if (mUsed == Length)
-            UpdateQueue (2 * mUsed, 0, 0);
-         mData[mUsed++] = t;
+         if (IsFull) UpdateQueue ();
+         if (IsEmpty) ResetPointers ();
+         else if (mTail == (Length - 1)) mTail = 0;
+         else mTail++;
+         mData[mTail] = t;
+         mUsed++;
       }
       public T TailDequeue () {
-         if (IsEmpty) throw new Exception ("Queue Empty");
-         return mData[--mUsed];
+         T t = mData[mTail];
+         if (mUsed == 1 && mHead == mTail) ResetPointers ();
+         else if (mTail == 0) mTail = Length - 1;
+         else mTail--;
+         mUsed--;
+         return t;
       }
-      /// <summary> Updates queue to the given size where x and y are set depends on enqueue and dequeue</summary>
-      void UpdateQueue (int size, int x=1, int y=0) {
+      #endregion
+
+      #region Private Methods
+      void ResetPointers () => (mHead, mTail) = (0, 0);
+      void UpdateQueue () {
+         int size = Length * 2;
          var tmp = new T[size];
-         for (int i = 0; i < mUsed; i++)
-            tmp[i + x] = mData[i + y];
+         for (int i = mHead; i < Length; i++)
+            tmp[size - (Length - i)] = mData[i];
+         for (int i = 0; i <= mTail; i++)
+            tmp[i] = mData[i];
+         mHead = size - (Length - mHead);
          mData = tmp;
+         return;
       }
+      #endregion
+
+      #region Private Data Members
+      T[] mData = new T[4];
+      int mUsed, mHead, mTail;
+      #endregion
    }
 }
