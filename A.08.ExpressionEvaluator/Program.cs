@@ -2,20 +2,17 @@
 
 class Program {
    static void Main (string[] args) {
-      var eval = new Evaluator ();
-      for (; ; ) {
-         Console.Write ("> ");
-         string text = Console.ReadLine () ?? "";
-         if (text == "exit") break;
-         try {
-            double result = eval.Evaluate (text);
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine (result);
-         } catch (Exception e) {
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine (e.Message);
+      Console.Write ("Enter the number of sequence : ");
+      if (int.TryParse (Console.ReadLine (), out int n)) {
+         var (a, b, c) = (0, 1, 0);
+         Console.Write ($"{a}, {b}");
+         for (int i = 2; i < n; i++) {
+            c = a + b;
+            Console.Write ($", {c}");
+            (a, b) = (b, c);
          }
-         Console.ResetColor ();
-      }
+         Console.WriteLine ();
+      } else { Console.WriteLine ("Invalid Input"); }
    }
+
 }
