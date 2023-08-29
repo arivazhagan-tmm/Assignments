@@ -3,32 +3,25 @@ using System.Text;
 using static State;
 
 class Program {
-   static void Main (string[] args) {
+   static void Main () {
       Random rand = new ();
-      for (int i = 0; i < 50; i++) {
-         var n = rand.Next (1, 10000);
-         var (word, roman) = Convert (n);
-         Console.WriteLine ($" Number\t: {n}\n Word\t: {word}\n Roman\t: {roman}\n");
-      }
+      for (int i = 0; i < 50; i++) PrintResult (rand.Next (1, 10000));
       while (true) {
          Console.Write (" Enter the number : ");
-         var str = Console.ReadLine ();
-         if (int.TryParse (str, out int n)) {
-            var (word, roman) = Convert (n);
-            Console.WriteLine ($" Number\t: {n}\n Word\t: {word}\n Roman\t: {roman}\n");
-         } else { Console.WriteLine ("Conversion Failed"); break; }
+         if (int.TryParse (Console.ReadLine (), out int n)) PrintResult (n);
+         else { Console.WriteLine ("Conversion Failed"); break; }
       }
    }
 
    static (string word, string roman) Convert (int n) {
-      int tmp = n, prev = 0, last = 0;
+      var (tmp, prev, last) = (n, 0, 0);
       Action none = () => { }, todo;
       State s = A;
       StringBuilder word = new (), roman = new ();
       while (tmp > 0) {
          var rem = tmp % 10; // Remainder
          tmp /= 10;
-         var (remWord, remRoman) = ((Words)rem, (Roman)rem);
+         var (remWord, remRoman) = (words[rem], romans[rem]);
          bool remZero = rem is 0;
          var val = int.Parse (rem is 1 ? $"{rem}{prev}" : $"{rem}0");
          (s, todo) = (s, remZero) switch {
@@ -36,12 +29,12 @@ class Program {
             (A, false) => (B, () => { word.Insert (0, remWord); roman.Append (remRoman); prev = rem; last = rem; }),
             (B, true) => (C, none),
             (B, false) => (C, () => {
-               if (rem is 1) word.Clear (); word.Insert (0, (Words)val + " ");
+               if (rem is 1) word.Clear (); word.Insert (0, words[val] + " ");
                switch (val) {
-                  case 40 or 90: roman.Insert (0, (Roman)val); break;
+                  case 40 or 90: roman.Insert (0, romans[val]); break;
                   case >= 50 and < 90:
-                     for (int j = 0, k = (val - 50) / 10; j < k; j++) roman.Insert (0, (Roman)10); roman.Insert (0, (Roman)50); break;
-                  default: for (int j = 0, k = val / 10; j < k; j++) roman.Insert (0, (Roman)10); break;
+                     for (int j = 0, k = (val - 50) / 10; j < k; j++) roman.Insert (0, "X"); roman.Insert (0, "L"); break;
+                  default: for (int j = 0, k = val / 10; j < k; j++) roman.Insert (0, "X"); break;
                }
                last = rem;
             }
@@ -50,27 +43,27 @@ class Program {
             (C, false) => (D, () => {
                var extnd = last is 0 ? "" : "and"; word.Insert (0, $"{remWord} Hundred {extnd} ");
                switch (val) {
-                  case 40 or 90: roman.Insert (0, (Roman)(val * 10)); break;
-                  case < 50: for (int j = 0, k = val / 10; j < k; j++) roman.Insert (0, (Roman)100); break;
-                  default: for (int j = 0, k = (val - 50) / 10; j < k; j++) roman.Insert (0, (Roman)100); roman.Insert (0, (Roman)500); break;
+                  case 40 or 90: roman.Insert (0, romans[val * 10]); break;
+                  case < 50: for (int j = 0, k = val / 10; j < k; j++) roman.Insert (0, "C"); break;
+                  default: for (int j = 0, k = (val - 50) / 10; j < k; j++) roman.Insert (0, "C"); roman.Insert (0, "D"); break;
                }
             }
             ),
+            (D, true) => (E, () => prev = rem),
             (D, false) => (E, () => {
                word.Insert (0, $"{remWord} Thousand "); prev = rem;
-               for (int j = 0, k = val / 10; j < k; j++) roman.Insert (0, (Roman)1000);
+               for (int j = 0, k = val / 10; j < k; j++) roman.Insert (0, "M");
             }
             ),
-            (D, true) => (E, () => prev = rem),
+            (E, true) => (F, none),
             (E, false) => (F, () => {
                var extnd = prev is 0 ? " Thousand " : " ";
-               if (rem is 1 && prev != 0) word = word.Remove (0, ((Words)prev).ToString ().Length);
-               word.Insert (0, (Words)val + extnd);
+               if (rem is 1 && prev != 0) word = word.Remove (0, words[prev].ToString ().Length);
+               word.Insert (0, words[val] + extnd);
                roman.Clear ();
                roman.Append ("Limit Exceeded");
             }
             ),
-            (E, true) => (F, none),
             (F, false) => (G, () => word.Insert (0, $"{remWord} Lakh ")),
             _ => (G, none)
          };
@@ -78,19 +71,24 @@ class Program {
       }
       return (word.ToString (), roman.ToString ());
    }
+
+   static void PrintResult (int n) {
+      var (word, roman) = Convert (n);
+      Console.WriteLine ($" Number\t: {n}\n Word\t: {word}\n Roman\t: {roman}\n");
+   }
+
+   static Dictionary<int, string> words = new () {
+         {0, "Zero"},{1, "One"}, {2, "Two"},{3, "Three"},{4, "Four"},{5, "Five"},{6, "Six"}, {7, "Seven"}, {8, "Eight"},{9, "Nine"},{10, "Ten" },
+         {11, "Eleven"}, {12, "Twelve"}, {13, "Thirteen"}, {14, "Fourteen"}, {15, "Fifteen"}, {16, "Sixteen"},{17, "Seventeen"},{18, "Eighteen"},
+         {19, "Nineteen"},{20, "Twenty"},{30, "Thirty"},{40, "Forty"},{50, "Fifty"},{60, "Sixty"},{70, "Seventy"},{80, "Eighty"},{90, "Ninety"},
+      };
+
+   static Dictionary<int, string> romans = new () {
+         { 0, ""},  { 1, "I"}, { 2, "II"},{ 3, "III"},{ 4, "IV"},{ 5, "V"},{ 6, "VI"}, { 7, "VII"}, { 8, "VIII"},{ 9, "IX"}, { 40, "XL"},
+         { 90, "XC"},{ 400, "CD"}, { 900, "CM"}
+      };
 }
 
 public enum State {
    A, B, C, D, E, F, G
-}
-
-public enum Words {
-   Zero = 0, One = 1, Two = 2, Three = 3, Four = 4, Five = 5, Six = 6, Seven = 7, Eight = 8, Nine = 9,
-   Eleven = 11, Twelve = 12, Thirteen = 13, Fourteen = 14, Fifteen = 15, Sixteen = 16, Seventeen = 17, Eighteen = 18, Nineteen = 19,
-   Ten = 10, Twenty = 20, Thirty = 30, Forty = 40, Fifty = 50, Sixty = 60, Seventy = 70, Eighty = 80, Ninety = 90
-}
-
-public enum Roman {
-   I = 1, II = 2, III = 3, IV = 4, V = 5, VI = 6, VII = 7, VIII = 8,
-   IX = 9, X = 10, XL = 40, L = 50, XC = 90, C = 100, CD = 400, D = 500, CM = 900, M = 1000
 }
