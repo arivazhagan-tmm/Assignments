@@ -6,7 +6,8 @@ internal class Program {
          Write ("\nEnter the number\t: ");
          if (int.TryParse (ReadLine (), out int n)) {
             var (Binary, Hexa) = Convert (n);
-            WriteLine ($"Binary Format\t\t: {Binary}\nHexaDecimal Format\t: {Hexa}");
+            WriteLine ($"Binary Format\t\t: {Binary}\nString Conversion\t: {Convert (n, 2)}" +
+               $"\nHexaDecimal Format\t: {Hexa}\nString Conversion\t: {Convert (n, 16)}");
          } else
             break;
       }
@@ -30,6 +31,8 @@ internal class Program {
       }
       return (binary, sb.ToString ());
    }
+
+   static string Convert (int n, int b) => System.Convert.ToString (n, b);
 
    static Dictionary<int, string> hexaPairs = new () {
       {10, "A" },{11, "B" },{12, "C" },{13, "D" },{14, "E" },{15, "F" },
