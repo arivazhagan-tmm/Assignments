@@ -5,7 +5,7 @@ using static State;
 class Program {
    static void Main () {
       Random rand = new ();
-      for (int i = 0; i < 50; i++) PrintResult (rand.Next (1, 10000));
+      for (int i = 0; i < 100; i++) PrintResult (rand.Next (1, 1000));
       while (true) {
          Console.Write (" Enter the number : ");
          if (int.TryParse (Console.ReadLine (), out int n)) PrintResult (n);
@@ -73,8 +73,63 @@ class Program {
    }
 
    static void PrintResult (int n) {
-      var (word, roman) = Convert (n);
+      StringBuilder word = new (), roman = new ();
+      UpdateWord (n, word);
+      UpdateRoman (n, roman);
       Console.WriteLine ($" Number\t: {n}\n Word\t: {word}\n Roman\t: {roman}\n");
+   }
+
+   /// <summary> Updates String Builder with each word of a digit of given integer</summary>
+   static void UpdateWord (int n, StringBuilder word) {
+      var str = n.ToString ();
+      int len = str.Length,
+            a = int.Parse (str[0].ToString ()),
+            b = n % 10;
+      Action todo = () => { };
+      todo = len switch {
+         2 => () => {
+            var tmp = a is 0 || b is 0 || n is >= 10 and <= 20 ? words[n] : $"{words[a * 10]} {words[b]}";
+            word.Append (tmp);
+         }
+         ,
+         3 => () => Update (n - (a * 100), $"{words[a]} Hundred and ", word, false),
+         4 => () => Update (n - (a * 1000), $"{words[a]} Thousand ", word, false),
+         5 => () => {
+            int c = int.Parse (str.Remove (2, len - 2));
+            UpdateWord (c, word);
+            Update (n - (c * 1000), " Thousand ", word, false);
+         }
+         ,
+         _ => () => {
+            if (n is 0 && word.Length > 0) word.Replace (" and ", "");
+            else word.Append (words[n]);
+         }
+      };
+      todo ();
+   }
+
+   /// <summary> Updates String Builder with roman letters for the given integer</summary>
+   static void UpdateRoman (int n, StringBuilder roman) {
+      if (n <= 10) roman.Insert (0, romans[n]);
+      else if (n is > 10 and < 40) Update (n - 10, "X", roman, true);
+      else if (n is >= 40 and < 50) Update (n - 40, "XL", roman, true);
+      else if (n is >= 50 and < 90) Update (n - 50, "L", roman, true);
+      else if (n is >= 90 and < 100) Update (n - 90, "XC", roman, true);
+      else if (n is >= 100 and < 400) Update (n - 100, "C", roman, true);
+      else if (n is >= 400 and < 500) Update (n - 400, "CD", roman, true);
+      else if (n is >= 500 and < 900) Update (n - 500, "D", roman, true);
+      else if (n is >= 900 and < 1000) Update (n - 900, "CM", roman, true);
+   }
+
+   /// <summary> Updates String Builder with given string</summary>
+   static void Update (int n, string str, StringBuilder sb, bool roman) {
+      if (roman) {
+         UpdateRoman (n, sb);
+         sb.Insert (0, str);
+      } else {
+         sb.Append (str);
+         UpdateWord (n, sb);
+      }
    }
 
    static Dictionary<int, string> words = new () {
@@ -84,8 +139,9 @@ class Program {
       };
 
    static Dictionary<int, string> romans = new () {
-         { 0, ""},  { 1, "I"}, { 2, "II"},{ 3, "III"},{ 4, "IV"},{ 5, "V"},{ 6, "VI"}, { 7, "VII"}, { 8, "VIII"},{ 9, "IX"}, { 40, "XL"},
-         { 90, "XC"},{ 400, "CD"}, { 900, "CM"}
+         { 0, ""},  { 1, "I"}, { 2, "II"},{ 3, "III"},{ 4, "IV"},{ 5, "V"},{ 6, "VI"}, { 7, "VII"},
+         { 8, "VIII"},{ 9, "IX"}, {10, "X" }, { 40, "XL"}, {50, "L" },{ 90, "XC"},{ 100, "C"},{ 400, "CD"},
+         { 500, "D"}, { 900, "CM"}, { 1000, "M"}
       };
 }
 
