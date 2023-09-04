@@ -9,41 +9,32 @@
       #region Public Methods
       public void HeadEnqueue (T t) {
          if (IsFull) UpdateQueue ();
-         if (IsEmpty) ResetPointers ();
-         else if (mHead == 0) mHead = Length - 1;
-         else mHead--;
+         mHead = mHead is 0 ? Length - 1 : mHead - 1;
          mData[mHead] = t;
          mUsed++;
       }
       public T HeadDequeue () {
          if (IsEmpty) throw new Exception ("Queue Empty");
          T t = mData[mHead];
-         if (mUsed == 1 && mHead == mTail) ResetPointers ();
-         else if (mHead == (Length - 1)) mHead = 0;
-         else mHead++;
+         mHead = mHead == (Length - 1) ? 0 : mHead + 1;
          mUsed--;
          return t;
       }
       public void TailEnqueue (T t) {
          if (IsFull) UpdateQueue ();
-         if (IsEmpty) ResetPointers ();
-         else if (mTail == (Length - 1)) mTail = 0;
-         else mTail++;
          mData[mTail] = t;
+         mTail = mTail == (Length - 1) ? 0 : mTail + 1;
          mUsed++;
       }
       public T TailDequeue () {
-         T t = mData[mTail];
-         if (mUsed == 1 && mHead == mTail) ResetPointers ();
-         else if (mTail == 0) mTail = Length - 1;
-         else mTail--;
+         if (IsEmpty) throw new Exception ("Queue Empty");
+         mTail = mTail is 0 ? Length - 1 : mTail - 1;
          mUsed--;
-         return t;
+         return mData[mTail];
       }
       #endregion
 
       #region Private Methods
-      void ResetPointers () => (mHead, mTail) = (0, 0);
       void UpdateQueue () {
          int size = Length * 2;
          var tmp = new T[size];
