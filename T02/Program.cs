@@ -1,15 +1,16 @@
 ﻿namespace T02;
 using System.Text;
 using static State;
+using static System.Console;
 
 class Program {
    static void Main () {
       Random rand = new ();
-      for (int i = 0; i < 100; i++) PrintResult (rand.Next (1, 1000));
+      for (int i = 0; i < 100; i++) ToWordAndRoman (rand.Next (1, 1000));
       while (true) {
-         Console.Write (" Enter the number : ");
-         if (int.TryParse (Console.ReadLine (), out int n)) PrintResult (n);
-         else { Console.WriteLine ("Conversion Failed"); break; }
+         Write (" Enter the number : ");
+         if (int.TryParse (ReadLine (), out int n)) ToWordAndRoman (n);
+         else { WriteLine ("Conversion Failed"); break; }
       }
    }
 
@@ -72,32 +73,27 @@ class Program {
       return (word.ToString (), roman.ToString ());
    }
 
-   static void PrintResult (int n) {
-      StringBuilder word = new (), roman = new ();
-      UpdateWord (n, word);
-      UpdateRoman (n, roman);
-      Console.WriteLine ($" Number\t: {n}\n Word\t: {word}\n Roman\t: {roman}\n");
-   }
+   static void ToWordAndRoman (int n) => WriteLine ($" Number\t: {n}\n Word\t: {GetWord (n)}\n Roman\t: {GetRoman (n)}\n");
 
-   /// <summary> Updates String Builder with each word of a digit of given integer</summary>
-   static void UpdateWord (int n, StringBuilder word) {
+   /// <summary> Returns word format of given number </summary>
+   static string GetWord (int n) {
+      var word = new StringBuilder ();
       var str = n.ToString ();
       int len = str.Length,
-            a = int.Parse (str[0].ToString ()),
-            b = n % 10;
+          firstDigit = int.Parse (str[0].ToString ()),
+          lastDigit = n % 10;
       Action todo = () => { };
       todo = len switch {
          2 => () => {
-            var tmp = a is 0 || b is 0 || n is >= 10 and <= 20 ? words[n] : $"{words[a * 10]} {words[b]}";
+            var tmp = firstDigit is 0 || lastDigit is 0 || n is >= 10 and <= 20 ? words[n] : $"{words[firstDigit * 10]} {words[lastDigit]}";
             word.Append (tmp);
          }
          ,
-         3 => () => Update (n - (a * 100), $"{words[a]} Hundred and ", word, false),
-         4 => () => Update (n - (a * 1000), $"{words[a]} Thousand ", word, false),
+         3 => () => word.Append ($"{words[firstDigit]} Hundred and {GetWord (n - (firstDigit * 100))}"),
+         4 => () => word.Append ($"{words[firstDigit]} Thousand {GetWord (n - (firstDigit * 1000))}"),
          5 => () => {
-            int c = int.Parse (str.Remove (2, len - 2));
-            UpdateWord (c, word);
-            Update (n - (c * 1000), " Thousand ", word, false);
+            var tmp = int.Parse (str.Remove (2, len - 2));
+            word.Append ($"{GetWord (tmp)} Thousand {GetWord (n - (tmp * 1000))}");
          }
          ,
          _ => () => {
@@ -106,30 +102,22 @@ class Program {
          }
       };
       todo ();
+      return word.ToString ();
    }
 
-   /// <summary> Updates String Builder with roman letters for the given integer</summary>
-   static void UpdateRoman (int n, StringBuilder roman) {
+   /// <summary> Returns roman format of given number </summary>
+   static string GetRoman (int n) {
+      var roman = new StringBuilder ();
       if (n <= 10) roman.Insert (0, romans[n]);
-      else if (n is > 10 and < 40) Update (n - 10, "X", roman, true);
-      else if (n is >= 40 and < 50) Update (n - 40, "XL", roman, true);
-      else if (n is >= 50 and < 90) Update (n - 50, "L", roman, true);
-      else if (n is >= 90 and < 100) Update (n - 90, "XC", roman, true);
-      else if (n is >= 100 and < 400) Update (n - 100, "C", roman, true);
-      else if (n is >= 400 and < 500) Update (n - 400, "CD", roman, true);
-      else if (n is >= 500 and < 900) Update (n - 500, "D", roman, true);
-      else if (n is >= 900 and < 1000) Update (n - 900, "CM", roman, true);
-   }
-
-   /// <summary> Updates String Builder with given string</summary>
-   static void Update (int n, string str, StringBuilder sb, bool roman) {
-      if (roman) {
-         UpdateRoman (n, sb);
-         sb.Insert (0, str);
-      } else {
-         sb.Append (str);
-         UpdateWord (n, sb);
-      }
+      else if (n is > 10 and < 40) roman.Insert (0, $"X{GetRoman (n - 10)}");
+      else if (n is >= 40 and < 50) roman.Insert (0, $"XL{GetRoman (n - 40)}");
+      else if (n is >= 50 and < 90) roman.Insert (0, $"L{GetRoman (n - 50)}");
+      else if (n is >= 90 and < 100) roman.Insert (0, $"XC{GetRoman (n - 90)}");
+      else if (n is >= 100 and < 400) roman.Insert (0, $"C{GetRoman (n - 100)}");
+      else if (n is >= 400 and < 500) roman.Insert (0, $"CD{GetRoman (n - 400)}");
+      else if (n is >= 500 and < 900) roman.Insert (0, $"D{GetRoman (n - 500)}");
+      else if (n is >= 900 and < 1000) roman.Insert (0, $"CM{GetRoman (n - 900)}");
+      return roman.ToString ();
    }
 
    static Dictionary<int, string> words = new () {
