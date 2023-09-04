@@ -81,7 +81,7 @@ class Program {
 
    /// <summary> Returns word format of given number </summary>
    static string GetWord (int n) {
-      var( word, str) = ("", n.ToString());
+      var (word, str) = ("", n.ToString ());
       var (len, firstDigit, lastDigit) = (str.Length, int.Parse (str[0].ToString ()), n % 10);
       Action todo = () => { };
       todo = len switch {
@@ -106,7 +106,7 @@ class Program {
 
    /// <summary> Returns roman format of given number </summary>
    static string GetRoman (int n) {
-      string? roman;
+      var roman = "";
       if (n <= 10) roman = romans[n];
       else if (n is > 10 and < 40) roman = $"X{GetRoman (n - 10)}";
       else if (n is >= 40 and < 50) roman = $"XL{GetRoman (n - 40)}";
@@ -117,7 +117,6 @@ class Program {
       else if (n is >= 500 and < 900) roman = $"D{GetRoman (n - 500)}";
       else if (n is >= 900 and < 1000) roman = $"CM{GetRoman (n - 900)}";
       else if (n is >= 1000 and < 4000) roman = $"M{GetRoman (n - 1000)}";
-      else roman = "Limit Exceeded";
       return roman;
    }
 
