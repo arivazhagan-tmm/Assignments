@@ -8,9 +8,11 @@ class Program {
       Random rand = new ();
       for (int i = 0; i < 100; i++) ToWordAndRoman (rand.Next (1, 1000));
       while (true) {
-         Write (" Enter the number : ");
-         if (int.TryParse (ReadLine (), out int n)) ToWordAndRoman (n);
-         else { WriteLine ("Conversion Failed"); break; }
+         Write ("Enter the number : ");
+         if (int.TryParse (ReadLine (), out int n)) {
+            if (n <= 3999) ToWordAndRoman (n);
+            else WriteLine ("Max Limit is 3999\n");
+         } else { WriteLine ("Conversion Failed"); break; }
       }
    }
 
@@ -73,7 +75,19 @@ class Program {
       return (word.ToString (), roman.ToString ());
    }
 
-   static void ToWordAndRoman (int n) => WriteLine ($" Number\t: {n}\n Word\t: {GetWord (n)}\n Roman\t: {GetRoman (n)}\n");
+   static void ToWordAndRoman (int n) {
+      var (word, roman) = Convert (n);
+      WriteLine ($"Number\t: {n}\n");
+      ForegroundColor = ConsoleColor.Green;
+      WriteLine ("Conversion By Digits Count");
+      ResetColor ();
+      WriteLine ($"Word\t: {GetWord (n)}\nRoman\t: {GetRoman (n)}\n");
+      ForegroundColor = ConsoleColor.Green;
+      WriteLine ("Conversion By State Machines");
+      ResetColor ();
+      WriteLine ($"Word\t: {word}\nRoman\t: {roman}");
+      WriteLine ("_________________________________________");
+   }
 
    /// <summary> Returns word format of given number </summary>
    static string GetWord (int n) {
@@ -117,6 +131,8 @@ class Program {
       else if (n is >= 400 and < 500) roman.Insert (0, $"CD{GetRoman (n - 400)}");
       else if (n is >= 500 and < 900) roman.Insert (0, $"D{GetRoman (n - 500)}");
       else if (n is >= 900 and < 1000) roman.Insert (0, $"CM{GetRoman (n - 900)}");
+      else if (n is >= 1000 and < 4000) roman.Insert (0, $"M{GetRoman (n - 1000)}");
+      else roman.Append ("Limit Exceeded");
       return roman.ToString ();
    }
 
