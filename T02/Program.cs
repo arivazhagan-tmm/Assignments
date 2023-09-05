@@ -19,7 +19,7 @@ class Program {
    static (string word, string roman) Convert (int n) {
       var (tmp, prev, last) = (n, 0, 0);
       Action none = () => { }, todo;
-      State s = A;
+      State s = Ones;
       StringBuilder word = new (), roman = new ();
       while (tmp > 0) {
          var rem = tmp % 10; // Remainder
@@ -28,10 +28,10 @@ class Program {
          bool remZero = rem is 0;
          var val = int.Parse (rem is 1 ? $"{rem}{prev}" : $"{rem}0");
          (s, todo) = (s, remZero) switch {
-            (A, true) => (B, none),
-            (A, false) => (B, () => { word.Insert (0, remWord); roman.Append (remRoman); prev = rem; last = rem; }),
-            (B, true) => (C, none),
-            (B, false) => (C, () => {
+            (Ones, true) => (Tens, none),
+            (Ones, false) => (Tens, () => { word.Insert (0, remWord); roman.Append (remRoman); prev = rem; last = rem; }),
+            (Tens, true) => (Hundreds, none),
+            (Tens, false) => (Hundreds, () => {
                if (rem is 1) word.Clear (); word.Insert (0, words[val] + " ");
                switch (val) {
                   case 40 or 90: roman.Insert (0, romans[val]); break;
@@ -40,25 +40,22 @@ class Program {
                   default: for (int j = 0, k = val / 10; j < k; j++) roman.Insert (0, "X"); break;
                }
                last = rem;
-            }
-            ),
-            (C, true) => (D, none),
-            (C, false) => (D, () => {
-               var extnd = last is 0 ? "" : "and"; word.Insert (0, $"{remWord} Hundred {extnd} ");
+            }),
+            (Hundreds, true) => (Thousands, none),
+            (Hundreds, false) => (Thousands, () => {
+               var ext = last is 0 ? "" : "and"; word.Insert (0, $"{remWord} Hundred {ext} ");
                switch (val) {
                   case 40 or 90: roman.Insert (0, romans[val * 10]); break;
                   case < 50: for (int j = 0, k = val / 10; j < k; j++) roman.Insert (0, "C"); break;
                   default: for (int j = 0, k = (val - 50) / 10; j < k; j++) roman.Insert (0, "C"); roman.Insert (0, "D"); break;
                }
-            }
-            ),
-            (D, true) => (E, () => prev = rem),
-            (D, false) => (E, () => {
-               word.Insert (0, $"{remWord} Thousand "); prev = rem;
+            }),
+            (Thousands, true) => (End, none),
+            (Thousands, false) => (End, () => {
+               word.Insert (0, $"{remWord} Thousand ");
                for (int j = 0, k = val / 10; j < k; j++) roman.Insert (0, "M");
-            }
-            ),
-            _ => (G, none)
+            }),
+            _ => (End, none)
          };
          todo ();
       }
@@ -85,20 +82,18 @@ class Program {
       var (len, firstDigit, lastDigit) = (str.Length, int.Parse (str[0].ToString ()), n % 10);
       Action todo = () => { };
       todo = len switch {
-         2 => () => {
+         2 => () => { // Handling Tens
             var tmp = firstDigit is 0 || lastDigit is 0 || n is >= 10 and <= 20 ? words[n] : $"{words[firstDigit * 10]} {words[lastDigit]}";
             word = tmp;
-         }
-         ,
-         3 => () => {
+         },
+         3 => () => { // Handling Hundreds
             var hundreds = n % 100 is 0;
-            var extension = hundreds ? "Hundred" : "Hundred and";
+            var ext = hundreds ? "Hundred" : "Hundred and";
             var result = hundreds ? "" : GetWord (n - (firstDigit * 100));
-            word = $"{words[firstDigit]} {extension} {result}";
-         }
-         ,
-         4 => () => word = $"{words[firstDigit]} Thousand {GetWord (n - (firstDigit * 1000))}",
-         _ => () => word = words[n]
+            word = $"{words[firstDigit]} {ext} {result}";
+         },
+         4 => () => word = $"{words[firstDigit]} Thousand {GetWord (n - (firstDigit * 1000))}", // Handling Thousands
+         _ => () => word = words[n] // Handling Ones
       };
       todo ();
       return word;
@@ -134,5 +129,5 @@ class Program {
 }
 
 public enum State {
-   A, B, C, D, E, F, G
+   Ones, Tens, Hundreds, Thousands, End, 
 }
