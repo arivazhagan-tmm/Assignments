@@ -1,16 +1,21 @@
-﻿using static System.Console;
+﻿using System.Reflection;
+using static System.Console;
 
 class Program {
    static void Main () {
-      var words = File.ReadAllLines (@"C:\etc\words.txt");
-      var result = words[0];
-      foreach (var word in words) {
-         if (IsAbecedarian (word)) {
-            result = word.Length > result.Length ? word : result;
-            WriteLine (word);
+      using var stream = Assembly.GetExecutingAssembly ().GetManifestResourceStream ("T16.Data.words.txt");
+      using var reader = stream != null ? new StreamReader (stream) : null;
+      if (reader != null) {
+         var result = "";
+         while (!reader.EndOfStream) {
+            var word = reader?.ReadLine ()?.Trim ();
+            if (IsAbecedarian (word ?? "")) {
+               result = word?.Length > result.Length ? word : result;
+               WriteLine (word);
+            }
          }
+         WriteLine ($"\nLongest abecedarian word\t: {result}");
       }
-      WriteLine ($"Longest abecedarian word\t: {result}");
    }
 
    static bool IsAbecedarian (string str) {
