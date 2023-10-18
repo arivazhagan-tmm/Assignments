@@ -8,5 +8,6 @@ internal class Program {
          else break;
       }
    }
+
    static bool Isogram (string word) => word.Distinct ().Count () == word.Length;
 }
