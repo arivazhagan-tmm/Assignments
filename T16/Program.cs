@@ -7,17 +7,15 @@ class Program {
    static void Main () {
       using var stream = Assembly.GetExecutingAssembly ().GetManifestResourceStream ("T16.Data.words.txt");
       using var reader = stream != null ? new StreamReader (stream) : null;
-      if (reader != null) {
-         var words = new List<string> ();
-         while (!reader.EndOfStream)
-            words.Add (reader?.ReadLine () ?? "");
-         var result = GetLongestAbecedarian (words.ToArray (), out string[] abecedarians);
-         WriteLine ("Following are the abecedarian words and their length : ");
-         int count = 1;
-         foreach (var word in abecedarians) WriteLine ($"{count++}.\t{word}\t: {word.Length}");
-         WriteLine ();
-         WriteLine ($"Longest abecedarian word: {result}");
-      }
+      var words = new List<string> ();
+      while (reader != null && !reader.EndOfStream)
+         words.Add (reader?.ReadLine () ?? "");
+      var (result, abecedarians) = GetLongestAbecedarian (words.ToArray ());
+      WriteLine ("Following are the abecedarian words and their length : ");
+      int count = 1;
+      foreach (var word in abecedarians) WriteLine ($"{count++}.\t{word}\t: {word.Length}");
+      WriteLine ();
+      WriteLine ($"Longest abecedarian word: {result}");
    }
 
    // Checks if the given string is abecedarian or not. In abecedarian string, letters are arranged in alphabetical order.
@@ -27,8 +25,8 @@ class Program {
       return true;
    }
 
-   // Returns a longest abecedarian word from the given words.
-   static string GetLongestAbecedarian (string[] words, out string[] abecedarians) {
+   // Returns the longest abecedarian word and array of abecedarian words from the given words.
+   static (string, string[]) GetLongestAbecedarian (string[] words) {
       var result = "";
       var tmp = new List<string> ();
       foreach (var word in words) {
@@ -37,7 +35,6 @@ class Program {
             tmp.Add (word ?? "");
          }
       }
-      abecedarians = tmp.ToArray ();
-      return result;
+      return (result, tmp.ToArray ());
    }
 }
