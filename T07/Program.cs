@@ -7,17 +7,21 @@ var blackCoins = " ♜ │ ♞ │ ♝ │ ♛ │ ♚ │ ♝ │ ♞ │ ♜ �
 var blackPawns = " ♟ │ ♟ │ ♟ │ ♟ │ ♟ │ ♟ │ ♟ │ ♟ │";
 var whiteCoins = " ♖ │ ♘ │ ♗ │ ♕ │ ♔ │ ♗ │ ♘ │ ♖ │";
 var whitePawns = " ♙ │ ♙ │ ♙ │ ♙ │ ♙ │ ♙ │ ♙ │ ♙ │";
-var connector = "\n├───┼───┼───┼───┼───┼───┼───┼───┤";
+var connector = "├───┼───┼───┼───┼───┼───┼───┼───┤";
 var verticalBar = "│";
-for (int i = 0, size = 8; i < size; i++) {
+for (int i = 0, size = 8, padLength = 4; i < size; i++) {
    Write (verticalBar);
-   if (i is 0) Write (blackCoins);
-   else if (i is 1) Write (blackPawns);
-   else if (i == size - 2) Write (whitePawns);
-   else if (i == size - 1) Write (whiteCoins);
-   else
-      for (int j = 0; j < size; j++) Write (verticalBar.PadLeft (4));
+   Action todo = i switch {
+      0 => () => Write (blackCoins),
+      1 => () => Write (blackPawns),
+      6 => () => Write (whitePawns),
+      7 => () => Write (whiteCoins),
+      _ => () => { for (int j = 0; j < size; j++) Write (verticalBar.PadLeft (padLength)); }
+   };
+   todo ();
    if (i == size - 1) break;
+   WriteLine ();
    WriteLine (connector);
 }
-WriteLine ("\n└───┴───┴───┴───┴───┴───┴───┴───┘\n\n");
+WriteLine ();
+WriteLine ("└───┴───┴───┴───┴───┴───┴───┴───┘");
