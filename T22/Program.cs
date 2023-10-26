@@ -1,7 +1,6 @@
 ﻿using static System.Console;
 
 internal class Program {
-
    // Swaps digits of a number based on user given index values.
    private static void Main () {
       var rand = new Random ();
@@ -12,9 +11,10 @@ internal class Program {
          GetResponse ("Enter the first index\t: ", len, out int i);
          GetResponse ("Enter the second index\t: ", len, out int j);
          Write ($"Result:");
+         var (m, n) = Swap (i, j);
          for (int k = 0; k < len; k++) {
-            if (k == i) Print (num[j]);
-            else if (k == j) Print (num[i]);
+            if (k == i) Print (num[m]);
+            else if (k == j) Print (num[n]);
             else Write ($" {num[k]}");
          }
          WriteLine ();
@@ -44,5 +44,13 @@ internal class Program {
       ForegroundColor = ConsoleColor.Green;
       Write ($" {c}");
       ResetColor ();
+   }
+
+   // Swaps given two numbers and store them into their actual address.
+   static (int a, int b) Swap (int a, int b) {
+      int tmp = a;
+      a = b;
+      b = tmp;
+      return (a, b);
    }
 }
