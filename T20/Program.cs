@@ -1,7 +1,6 @@
 ﻿using static System.Console;
 
 class Program {
-
    // Prints the integral & factorial part of the decimal number given by the user.
    static void Main () {
       while (true) {
@@ -14,10 +13,10 @@ class Program {
             ResetColor ();
             Write (prompt);
          }
-         var split = f.ToString ().Split ('.');
-         Print ("Integral part\t: ", split[0]);
-         if (split.Length > 1)
-            Print ("Factorial part\t: ", split[1]);
+         var splits = f.ToString ().Split ('.');
+         Print ("Integral part\t: ", splits[0]);
+         if (splits.Length > 1)
+            Print ("Factorial part\t: ", splits[1]);
          WriteLine ();
          WriteLine ();
          Write ("Do you want to continue? (Y/N): ");
@@ -29,8 +28,6 @@ class Program {
    // Prints each character in the given string with the given message.
    static void Print (string message, string str) {
       WriteLine ();
-      Write (message);
-      foreach (char i in str) Write ($"{i} ");
+      Write ($"{message}{string.Join (" ", str.ToCharArray ())}");
    }
-
 }
