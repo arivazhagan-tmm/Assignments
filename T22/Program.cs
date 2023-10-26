@@ -5,17 +5,18 @@ internal class Program {
    private static void Main () {
       var rand = new Random ();
       while (true) {
-         var num = rand.Next (1000, 100000).ToString ();
-         var len = num.Length;
+         var num = rand.Next (1000, 100000);
+         var arr = num.ToString ().ToCharArray ();
+         var len = arr.Length;
          WriteLine ($"The number is {num}.");
          GetResponse ("Enter the first index\t: ", len, out int i);
          GetResponse ("Enter the second index\t: ", len, out int j);
          Write ($"Result:");
-         var (m, n) = Swap (i, j);
+         Swap (arr, i, j);
          for (int k = 0; k < len; k++) {
-            if (k == i) Print (num[m]);
-            else if (k == j) Print (num[n]);
-            else Write ($" {num[k]}");
+            ForegroundColor = k == i || k == j ? ConsoleColor.Green : ForegroundColor;
+            Write ($" {arr[k]}");
+            ResetColor ();
          }
          WriteLine ();
          WriteLine ();
@@ -39,18 +40,8 @@ internal class Program {
       }
    }
 
-   // Prints the given character in green color.
-   static void Print (char c) {
-      ForegroundColor = ConsoleColor.Green;
-      Write ($" {c}");
-      ResetColor ();
-   }
-
-   // Swaps given two numbers and store them into their actual address.
-   static (int a, int b) Swap (int a, int b) {
-      int tmp = a;
-      a = b;
-      b = tmp;
-      return (a, b);
+   // Swaps the values present at the given indices in the given array .
+   static void Swap (char[] chars, int index1, int index2) {
+      (chars[index1], chars[index2]) = (chars[index2], chars[index1]);
    }
 }
