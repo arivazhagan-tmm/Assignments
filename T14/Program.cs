@@ -1,40 +1,41 @@
-﻿using System.Text;
-using static System.Console;
+﻿using static System.Console;
 
 internal class Program {
    // Prints the reduced form of user given sequence.
    static void Main () {
-      string[] testCases = { "aaabccddd", "aaaabbbb", "abba", "aba", "cassette",
+      string[] testCases = {"abba", "aaabccddd", "aaaabbbb", "aba", "cassette", "assassination",
                             "entry", "eennttrraannccee", "eeennntttrrraaannnccceee" };
-      Write ("Following are the sample test cases : ");
-      WriteLine ();
-      foreach (string testCase in testCases) {
-         WriteLine ();
-         Write ($"\t{testCase} - {GetReducedString (testCase)}");
-      }
-      WriteLine ();
-      WriteLine ();
+      Write ("Following are the sample test cases : \n");
+      foreach (string testCase in testCases)
+         Write ($"\n\t{testCase} - {GetReducedString (testCase)}");
+      Write ("\n\n");
       while (true) {
          var str = GetResponse ("Type the sequence: ");
          var reduced = GetReducedString (str);
-         var message = reduced?.Length is 0 ? "completely reduced."
+         var message = reduced.Length is 0 ? "completely reduced."
                        : str.Equals (reduced) ? "not reduced." : $"reduced to: {reduced}";
-         WriteLine ($"Sequence is {message}");
-         WriteLine ();
+         WriteLine ($"Sequence is {message}\n");
          Write ("Do you want to continue? (Y/N): ");
-         if (ReadLine ()?.ToLower () is not "y") break;
-         WriteLine ();
+         if (ReadKey ().Key is not ConsoleKey.Y) break;
+         Write ("\n\n");
       }
    }
 
-   // Returns the reduced form of the given string by eliminating similar adjucent characters.
+   // Returns the reduced form of the given string by eliminating similar adjacent characters.
    static string GetReducedString (string str) {
-      var reducedStr = new StringBuilder ();
-      for (int i = 0, len = str.Length; i < len;) {
-         if (i < len - 1 && str[i] == str[i + 1]) i += 2;
-         else reducedStr.Append (str[i++]);
-      }
-      return reducedStr.ToString ();
+      while (HasPair (str, out int index)) str = str.Remove (index, 2);
+      return str;
+   }
+
+   // Checks if the given string has pair of similar adjacent characters or not.
+   static bool HasPair (string str, out int index) {
+      index = -1;
+      for (int i = 0, len = str.Length; i < len - 1; i++)
+         if (str[i] == str[i + 1]) {
+            index = i;
+            return true;
+         }
+      return false;
    }
 
    // Getting the valid string sequence from the user for the given prompt.
@@ -44,7 +45,7 @@ internal class Program {
       do {
          Write (prompt);
          sequence = ReadLine () ?? "";
-         var len = sequence?.Length;
+         var len = sequence.Length;
          isValid = len >= 3;
          if (!isValid) {
             ForegroundColor = ConsoleColor.Red;
@@ -53,6 +54,6 @@ internal class Program {
          }
          WriteLine ();
       } while (!isValid);
-      return sequence ?? "";
+      return sequence;
    }
 }
