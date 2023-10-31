@@ -1,14 +1,12 @@
 ﻿using static System.Console;
 
-Write ("\tSample test case");
-WriteLine ();
+Write ("\tSample test case\n");
 var polls = "AabBBcd";
 var (winner, vote) = GetWinner (polls);
 PrintResult (polls, winner, vote);
 
 while (true) {
-   WriteLine ();
-   var prompt = "Poll your vote to find the winner: ";
+   var prompt = "\nPoll your vote to find the winner: ";
    bool validPoll;
    do {
       Write (prompt);
@@ -16,23 +14,20 @@ while (true) {
       validPoll = polls.Length != 0 && polls.All (char.IsLetter);
       if (!validPoll) {
          ForegroundColor = ConsoleColor.Red;
-         Write ("\tVotes are alphabets and minimum 2 votes to be polled.");
-         WriteLine ();
+         Write ("\tVotes are alphabets and minimum 2 votes to be polled.\n");
          ResetColor ();
       }
    } while (!validPoll);
    (winner, vote) = GetWinner (polls);
    PrintResult (polls, winner, vote);
-   Write ("Do you want to continue? (Y/N): ");
-   if (ReadLine ()?.ToLower () is not "y") break;
+   Write ("Do you want to continue? (y/n): ");
+   if (ReadKey ().Key is not ConsoleKey.Y) break;
    WriteLine ();
 }
 
 // Prints the polled votes, winner and max vote.
 static void PrintResult (string polls, char winner, int vote) {
-   WriteLine ();
-   WriteLine ($"\tPolls\t: {polls}\n\tWinner\t: {char.ToUpper (winner)}\n\tVotes\t: {vote}");
-   WriteLine ();
+   WriteLine ($"\n\tPolls\t: {polls}\n\tWinner\t: {char.ToUpper (winner)}\n\tVotes\t: {vote}\n");
 }
 
 // Finds and returns the winner along with their votes.
