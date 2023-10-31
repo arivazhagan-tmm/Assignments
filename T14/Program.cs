@@ -49,7 +49,7 @@ internal class Program {
          isValid = len >= 3;
          if (!isValid) {
             ForegroundColor = ConsoleColor.Red;
-            Write ("\tSequence should contain atleast 3 characters and atleast 2 adjucent duplicates.");
+            Write ("\tSequence should contain atleast 3 characters and atleast 2 adjacent duplicates.");
             ResetColor ();
          }
          WriteLine ();
