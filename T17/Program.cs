@@ -3,9 +3,9 @@ using static System.Console;
 
 class Program {
    // Generates and prints the permutation of user given 3 letter word.
-   private static void Main () {
+   static void Main () {
       while (true) {
-         var word = GetResponse ("Type the 3 Letter word : ");
+         var word = GetResponse ("Type the 3 letter word : ");
          WriteLine ($"\nPermutaions:");
          var (len, padding) = (word.Length, 15);
          var sb = new StringBuilder ();
@@ -15,10 +15,9 @@ class Program {
             WriteLine ($"{new string (sb.ToString ().Reverse ().ToArray ())}".PadLeft (padding));
             sb.Clear ();
          }
-         WriteLine ();
-         Write ("Do you want to continue? (Y/N): ");
-         if (ReadLine ()?.ToLower () is not "y") break;
-         WriteLine ();
+         Write ("\nDo you want to continue? (Y/N): ");
+         if (ReadKey ().Key is not ConsoleKey.Y) break;
+         WriteLine ("\n");
       }
    }
 
@@ -29,12 +28,11 @@ class Program {
       do {
          Write (prompt);
          response = ReadLine () ?? "";
-         isValid = !string.IsNullOrEmpty (response) && response.Length is 3;
+         isValid = response.Length is 3;
          if (!isValid) {
             ForegroundColor = ConsoleColor.Red;
-            Write ("\t The word should contain 3 letters.");
+            Write ("\tThe word should contain 3 letters.\n");
             ResetColor ();
-            WriteLine ();
          }
       } while (!isValid);
       return response;
