@@ -5,17 +5,17 @@ class Program {
    // Generates and prints the permutation of user given 3 letter word.
    static void Main () {
       while (true) {
-         var word = GetResponse ("Type the 3 letter word : ");
-         WriteLine ($"\nPermutaions:");
+         var word = GetResponse ("Type the 3 letter word: ");
+         WriteLine ($"\nPermutations:");
          var (len, padding) = (word.Length, 15);
-         var sb = new StringBuilder ();
+         StringBuilder sb = new ();
          for (int i = 0; i < len; i++) {
             for (int j = i; j - i < len; j++) sb.Append (word[j % len]);
             WriteLine ($"{sb}".PadLeft (padding));
             WriteLine ($"{new string (sb.ToString ().Reverse ().ToArray ())}".PadLeft (padding));
             sb.Clear ();
          }
-         Write ("\nDo you want to continue? (Y/N): ");
+         Write ("\nDo you want to continue? (y/n): ");
          if (ReadKey ().Key is not ConsoleKey.Y) break;
          WriteLine ("\n");
       }
@@ -27,7 +27,7 @@ class Program {
       string response;
       do {
          Write (prompt);
-         response = ReadLine () ?? "";
+         response = ReadLine ()!;
          isValid = response.Length is 3;
          if (!isValid) {
             ForegroundColor = ConsoleColor.Red;
