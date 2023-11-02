@@ -1,58 +1,56 @@
 ﻿using static System.Console;
-using static State;
 
 internal class Program {
    // Validates the password created by user based on certain conditions.
    static void Main () {
-      var stateMessage = new Dictionary<State, string> {
-         {A, "Password should contain minimum 6 characters."},
-         {B, "Password should contain atleast one digit between 0 and 9"},
-         {C, "Password should contain atleast one english alphabet"},
-         {D, "Password should contain atleast one of the english alphabet in upper and lower case"},
-         {E, "Password should contain atleast any one of the given characters ! @ # $ % ^ & * (  ) _ - +"},
-         {F, "Password is strong."}
-      };
-      string prompt = "Type the password: ";
-      State state;
-      ConsoleKeyInfo info;
-      while (true) {
+      string prompt = "Type the password: ", password;
+      while (mState is not State.F) {
+         password = "";
          Write (prompt);
-         string password = "";
-         info = ReadKey (true);
-         while (info.Key != ConsoleKey.Enter) {
+         mInfo = ReadKey (true);
+         while (mInfo.Key != ConsoleKey.Enter) {
             Write ("*");
-            password += info.KeyChar;
-            info = ReadKey (true);
+            password += mInfo.KeyChar;
+            mInfo = ReadKey (true);
          }
          WriteLine ();
-         state = Validate (password);
-         WriteLine (stateMessage[state]);
-         if (state is not F) prompt = "\nRe - enter the password: ";
-         else break;
+         mState = GetState (password);
+         WriteLine (mStateMsgPairs[mState]);
+         prompt = "\nRe-Enter the password: ";
       }
    }
 
-   // Validates the string by it's characters and returns its state.
-   static State Validate (string str) {
+   // Returns the state of given string by validating its characters.
+   static State GetState (string str) {
       var len = str.Length;
-      bool hasDigit = false, hasLetter = false, hasLowerCase = false, hasUpperCase = false, hasSymbol = false;
-      if (len < 6) return A;
+      string symbols = "!@#$%^&*()_-+";
+      var (hasDigit, hasLetter, hasLowerCase, hasUpperCase, hasSymbol) = (false, false, false, false, false);
+      if (len < 6) return State.A;
       for (int i = 0; i < len; i++) {
          char ch = str[i];
-         hasDigit = !hasDigit ? char.IsDigit (ch) : hasDigit;
-         hasLetter = !hasLetter ? char.IsLetter (ch) : hasLetter;
-         hasLowerCase = !hasLowerCase ? char.IsLower (ch) : hasLowerCase;
-         hasUpperCase = !hasUpperCase ? char.IsUpper (ch) : hasUpperCase;
-         hasSymbol = !hasSymbol ? mSymbols.Contains (ch) : hasSymbol;
+         if (!hasDigit) hasDigit = char.IsDigit (ch);
+         if (!hasLetter) hasLetter = char.IsLetter (ch);
+         if (!hasLowerCase) hasLowerCase = char.IsLower (ch);
+         if (!hasUpperCase) hasUpperCase = char.IsUpper (ch);
+         if (!hasSymbol) hasSymbol = symbols.Contains (ch);
       }
-      if (!hasDigit) return B;
-      if (!hasLetter) return C;
-      if (!hasLowerCase || !hasUpperCase) return D;
-      if (!hasSymbol) return E;
-      return F;
+      if (!hasDigit) return State.B;
+      if (!hasLetter) return State.C;
+      if (!hasLowerCase || !hasUpperCase) return State.D;
+      if (!hasSymbol) return State.E;
+      return State.F;
    }
 
-   static string mSymbols = "!@#$%^&*()_-+";
+   static ConsoleKeyInfo mInfo;
+   static State mState;
+   static Dictionary<State, string> mStateMsgPairs = new () {
+         {State.A, "Password should contain minimum 6 characters."},
+         {State.B, "Password should contain atleast one digit between 0 and 9"},
+         {State.C, "Password should contain atleast one english alphabet"},
+         {State.D, "Password should contain atleast one of the english alphabet in upper and lower case"},
+         {State.E, "Password should contain atleast any one of the given characters ! @ # $ % ^ & * (  ) _ - +"},
+         {State.F, "Password is strong."}
+      };
+   enum State { A, B, C, D, E, F }
 }
 
-public enum State { A, B, C, D, E, F }
