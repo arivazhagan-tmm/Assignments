@@ -27,7 +27,7 @@ class Program {
       string response;
       do {
          Write (prompt);
-         response = ReadLine ()!;
+         response = ReadLine () ?? "";
          isValid = response.Length is 3;
          if (!isValid) {
             ForegroundColor = ConsoleColor.Red;
