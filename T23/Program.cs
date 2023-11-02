@@ -14,7 +14,7 @@ while (true) {
       validPoll = polls.Length != 0 && polls.All (char.IsLetter);
       if (!validPoll) {
          ForegroundColor = ConsoleColor.Red;
-         Write ("\tVotes are alphabets and minimum 2 votes to be polled.\n");
+         Write ("\tAlphabets should be polled as votes.\n");
          ResetColor ();
       }
    } while (!validPoll);
@@ -35,7 +35,6 @@ static (char, int) GetWinner (string polls) {
    var freqPairs = new Dictionary<char, int> ();
    foreach (char ch in polls.ToLower ())
       freqPairs[ch] = freqPairs.TryGetValue (ch, out int value) ? ++value : 1;
-   var frequencies = freqPairs.Values.ToList ();
-   var winner = freqPairs.ElementAt (frequencies.IndexOf (frequencies.Max ()));
+   var winner = freqPairs.MaxBy (a => a.Value);
    return (winner.Key, winner.Value);
 }
