@@ -4,11 +4,12 @@ class Program {
    // Prints a number from the consecutive armstrong numbers at the user given index.
    // User is allowed to enter the index through the command prompt.
    static void Main (string[] args) {
-      if (int.TryParse (args[0], out var index) && index <= 25) {
-         var (i, count, tmp) = (1, 0, 0);
-         while (count != index)
-            (tmp, count) = IsArmstrong (i++) ? (i - 1, count + 1) : (tmp, count);
-         WriteLine ($"Armstrong number at index {index} is {tmp}.");
+      if (int.TryParse (args[0], out var index) && index is <= 25 and > 0) {
+         var (i, count) = (1, 1);
+         while (count != index) {
+            if (IsArmstrong (i++)) count++;
+         }
+         WriteLine ($"Armstrong number at index {index} is {i - 1}.");
       } else WriteLine ("Please enter index between 1 and 25.");
    }
 
