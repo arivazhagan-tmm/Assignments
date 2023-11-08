@@ -9,7 +9,7 @@ class Program {
          Write (prompt);
          while (!int.TryParse (ReadLine (), out n) || n > 10) {
             ForegroundColor = ConsoleColor.Red;
-            WriteLine ("\tPlease enter any whole number between 0 and 10.");
+            WriteLine ("Please enter any whole number between 0 and 10.");
             ResetColor ();
             Write (prompt);
          }
@@ -23,7 +23,7 @@ class Program {
    // Computes and returns the factorial of the given number.
    static long GetFactorial (int n) {
       long fact = 1;
-      do fact *= n * --n; while ((--n - 1) > 0);
+      for (int i = 2; i <= n; i++) fact *= i;
       return fact;
    }
 }
