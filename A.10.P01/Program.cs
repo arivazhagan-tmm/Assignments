@@ -1,16 +1,20 @@
 ﻿using System.Text;
 using static State;
+
 var testCases = new string[] { @"C:\ETC\DOCUMENTS\WORDS\GUIDELINES.TXT" ,
                                @"C:\USERS\CLEMENT\SOLUTIONFILES\EVALUATOR\BIN\DEBUG\EVAL.DLL",
                                @"E:\USERS\CLEMENT\DESKTOP\PRACTICEDRAWINGS\CBLOCKPART.PDG"};
-foreach (var testCase in testCases)
-   ParseFileName (testCase);
+foreach (var testCase in testCases) {
+   var (dir, path, file, extn) = ParseFileName (testCase);
+   Console.WriteLine ($" Directory: {dir}\n File path: {path}\n File Name: {file}\n Extension: {extn}\n");
+}
 
+// Returns the four substring of the given string.
 (string dir, string path, string file, string extn) ParseFileName (string str) {
    State state = A;
    Action none = () => { }, todo;
    string directory = "", fileName = "";
-   StringBuilder filePath = new (), extension = new ();
+   StringBuilder filePath = new (), extn = new ();
    int index = 0;
    foreach (var ch in str.Trim () + "~") {
       (state, todo) = (state, ch) switch {
@@ -24,15 +28,13 @@ foreach (var testCase in testCases)
             filePath = filePath.Remove (index, fileName.Length + 1);
          }
          ),
-         (E, >= 'A' and <= 'Z') => (E, () => extension.Append (ch)),
-         (E, '~') => (F, none),
-         _ => (Z, none)
+         (E, >= 'A' and <= 'Z') => (E, () => extn.Append (ch)),
+         (E, '~') => (G, none),
+         _ => (G, none)
       };
       todo ();
    }
-   Console.WriteLine ($" Directory : {directory}\n File path : {filePath}\n " +
-                      $"File Name : {fileName}\n Extension : {extension}\n");
-   return (directory, filePath.ToString (), fileName, extension.ToString ());
+   return (directory, filePath.ToString (), fileName, extn.ToString ());
 }
 
-public enum State { A, B, C, D, E, F, Z }
+public enum State { A, B, C, D, E, F, G }
