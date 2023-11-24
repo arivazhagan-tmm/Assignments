@@ -1,16 +1,23 @@
 ﻿namespace T26 {
+   #region Public Class-----------------------------------------------------------------------------
+   /// <summary> A generic class depicts the typical functionality of the conventional class "List".</summary>
+   /// <typeparam name="T"></typeparam>
    public class MyList<T> {
-      #region Constructor
+      #region Constructor---------------------------------------------
+      /// <summary> Initializes the MyList class with default properties.</summary>
+      // Default capacity is set to 4, capacity doubles on further addition of elements.
       public MyList () {
          (mCount, mCapacity) = (0, 4);
          mElements = new T[mCapacity];
-         mDefault = default;
       }
       #endregion
 
-      #region Public Properties
-      public int Count { get => mCount; }
-      public int Capacity { get => mCapacity; }
+      #region Public Properties---------------------------------------
+      /// <summary>  Number of elements present in the list.</summary>
+      public int Count => mCount;
+      /// <summary> Maximum number of elements that can be stored in the list.</summary>
+      public int Capacity => mCapacity;
+      /// <summary> Returns the element present in the given valid index. </summary>
       public T this[int index]
       {
          get
@@ -26,7 +33,7 @@
       }
       #endregion
 
-      #region Public Methods
+      #region Public Methods------------------------------------------
       /// <summary> Adds given element into the list. </summary>
       // Doubles the list capacity when it is completly filled.
       public void Add (T a) {
@@ -36,9 +43,8 @@
 
       /// <summary> Clears all the elements from list by setting default values to them. </summary>
       public void Clear () {
-         if (mDefault != null)
-            for (int i = 0; i < mCount;) mElements[i++] = mDefault;
          mCount = 0;
+         Array.Clear (mElements);
       }
 
       /// <summary> Inserts the given element at the given index. </summary>
@@ -47,54 +53,53 @@
       public void Insert (int index, T a) {
          ValidateArgument (index);
          Update ();
-         var tmp = new T[mCapacity];
-         for (int i = 0, j = 0; i < mCount; i++) {
-            if (i == index) (tmp[i], j) = (a, 1);
-            tmp[i + j] = mElements[i];
-         }
-         mElements = tmp;
+         for (int i = mCount; i > index; i--) mElements[i] = mElements[i - 1];
+         mElements[index] = a;
          mCount++;
       }
 
       /// <summary> Removes given element from list. </summary>
       // Throws an exception if the given element is not present in the list.
       public bool Remove (T a) {
-         for (int i = 0; i < mCount; i++) {
+         bool removed = false;
+         var (i, j) = (0, 0);
+         for (; i < mCount; i++) {
             T tmp = mElements[i];
-            if (tmp != null && tmp.Equals (a)) {
-               RemoveAt (i);
-               return true;
+            if (!removed && tmp != null && tmp.Equals (a)) {
+               j++;
+               mCount--;
+               removed = true;
             }
+            mElements[i] = mElements[i + j];
          }
-         return false;
+         mElements[mCount] = default!;
+         return removed;
       }
 
       /// <summary> Removes the element present in given index. </summary>
       // Throws an exception if the given index is not in the valid range.
       public void RemoveAt (int index) {
          ValidateArgument (index);
-         bool found = false;
-         for (int i = 0; i < mCount; i++) {
-            if (i == index) found = true;
-            if (found && i + 1 < mCount) mElements[i] = mElements[i + 1];
-         }
-         if (mDefault != null) mElements[--mCount] = mDefault;
+         for (int i = index; i < mCount - 1; i++) mElements[i] = mElements[i + 1];
+         mCount--;
       }
       #endregion
 
-      #region Private Methods
+      #region Private Methods-----------------------------------------
+      // Returns whether the given value is present in the valid range or not.
       bool IsInvalid (int val) => val < 0 || val >= mCount;
 
+      // Throws an exception if the arguement is not in the valid range.
       void ValidateArgument (int arg) {
          if (IsInvalid (arg)) throw new ArgumentOutOfRangeException ($"Given argument {arg} is not in the valid range.");
       }
 
-      /// <summary> Validates the given index for non negativity and max limit condition. </summary>
+      // Throws an exception if the index is not in the valid range.
       void ValidateIndex (int index) {
          if (IsInvalid (index)) throw new IndexOutOfRangeException ($"Cannot access the element at the given index {index}.");
       }
 
-      /// <summary> Doubles the current list capacity. </summary>
+      // Doubles the current list capacity.
       void Update () {
          if (mCount == mCapacity) {
             mCapacity *= 2;
@@ -105,11 +110,11 @@
       }
       #endregion
 
-      #region Private Fields
+      #region Private Fields------------------------------------------
       T[] mElements;
-      readonly T? mDefault;
       int mCount;
       int mCapacity;
       #endregion
    }
+   #endregion
 }

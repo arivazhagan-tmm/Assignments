@@ -3,6 +3,12 @@ using static System.Console;
 
 var mList = new MyList<int> ();
 Random r = new ();
+mList.Add (1);
+mList.Add (2);
+mList.Add (3);
+mList.Add (4);
+mList.Add (5);
+mList.Remove (1);
 for (int i = 1; i <= 50; i++) {
    var (tmp1, tmp2) = (r.NextDouble (), r.Next (0, i));
    if (tmp1 <= 0.25) {
@@ -31,7 +37,7 @@ void ShowList () {
    ResetColor ();
    if (mList?.Count > 0) {
       Write ("List items : ");
-      for (int j = 0, count = mList.Count; j < count; j++) Write ($" {mList[j]},");
+      for (int j = 0; j < mList.Count; j++) Write ($" {mList[j]},");
       WriteLine ();
    } else Write ("\nList is Empty!!");
 }
