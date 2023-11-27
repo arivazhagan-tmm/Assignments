@@ -3,28 +3,24 @@ using static System.Console;
 using static System.ConsoleColor;
 using static System.ConsoleKey;
 
-#region Internal Class Program----------------------------------------------------------------------
-/// <summary> An Internal class runs the wordle game by creating its object in main method. </summary>
-internal class Program {
-   static void Main () => new Wordle ().Start ();
-}
-#endregion
+var game = new Wordle ();
+game.Start ();
 
 #region Public Class Wordle-------------------------------------------------------------------------
 /// <summary>A public class runs the wordle game on the console window and allows the user to find the secret word.
-/// A parameterless constructor initializes the game, and the "Start" method displays the game on the console.
-/// The user is allowed to type alphabets to form a 5-letter word and needs to submit the formed word by pressing "Enter."
-/// The user can press backspace or the left arrow to remove the recently typed letter.
+/// Parameterless constructor initializes the game, and the "Start" method displays the game on the console.
+/// User is allowed to type alphabets to form a 5-letter word and needs to submit the formed word by pressing "Enter."
+/// User can press backspace or the left arrow to remove the recently typed letter.
 /// Any key other than alphabets, backspace, left arrow, and enter will be notified as an invalid key.
-/// The user will be given six tries to guess the word and will need to type valid words.
+/// User will be given six tries to guess the word and need to type valid words.
 /// Submitting invalid words will be notified.
-/// The user will be notified if he submits a word, even if it's valid but doesn't contain five letters.
-/// When the user finds the secret word, the number of tries will be printed, and then the game ends.
-/// If the user can't find the secret word after six tries, the secret word will be printed, and the game ends.
+/// User will be notified if he submits a word, even if it's valid but doesn't contain five letters.
+/// If secret word is found, the number of tries will be printed, and then the game ends.
+/// If secret word is not found after six tries, the word is revealed and the game ends.
 /// </summary>
 public class Wordle {
    #region Constructor------------------------------------------------
-   /// <summary>Initializes the worlde game by generating a secret word and setting the cursor properties.</summary>
+   /// <summary>Initializes the worlde game by generating a secret word.</summary>
    // Reads the all valid words from the words.txt file stored in the assembly.
    // Generates the secret word by chosing a random word from the readed words list.
    public Wordle () {
@@ -48,12 +44,14 @@ public class Wordle {
       ShowGame ();
       PrintMessage ("Game started! Type the word!");
       while (!mGameOver) ProcessInput (ReadKey (true).Key);
-      if (!mFoundWord) PrintMessage ($"Sorry - the word was {mSecretWord}");
+      if (mFoundWord) PrintMessage ($"You found word in {mPtr / mCols} tries");
+      else PrintMessage ($"Sorry - the word was {mSecretWord}");
+      CursorTop += 2;
    }
    #endregion
 
    #region Private Methods--------------------------------------------
-   /// <summary> Prints the line using underscore characters.</summary>
+   /// <summary> Prints the line using series of underscore character.</summary>
    void PrintLine () {
       CursorLeft = mWidth - 10;
       ForegroundColor = DarkGray;
@@ -98,8 +96,7 @@ public class Wordle {
          Enter => () => {
             CheckWord ();
             if (mIsValidWord) UpdateDisplay ();
-         }
-         ,
+         },
          Backspace or LeftArrow => () => {
             if (mResponse.Count > 0 && mPtr <= mCount) {
                mOptions[mPtr - 1].Ch = mCircle;
@@ -111,8 +108,7 @@ public class Wordle {
                mResponse.RemoveAt (mResponse.Count - 1);
                mPtr--;
             }
-         }
-         ,
+         },
          <= Z and >= A => () => {
             if (mPtr < mCount) {
                var ch = (char)key;
@@ -125,8 +121,7 @@ public class Wordle {
                   PrintCharacter (mOptions[mPtr]);
                }
             }
-         }
-         ,
+         },
          _ => () => PrintMessage ("Please enter valid input!")
       };
       todo ();
@@ -165,6 +160,7 @@ public class Wordle {
          CursorTop += 2;
       }
       PrintLine ();
+      PrintMessage ("");
    }
 
    /// <summary> Updates user given letters to the respective colors based on their indexes in the secret word.</summary>
@@ -179,7 +175,7 @@ public class Wordle {
          PrintCharacter (mLetters[a - 65], clr);
       }
       mResponse.Clear ();
-      mGameOver = mPtr == mCount;
+      if (mPtr == mCount) mGameOver = true;
       ResetColor ();
    }
 
@@ -188,10 +184,7 @@ public class Wordle {
       var str = new string (mResponse.ToArray ());
       mIsValidWord = mWords.Contains (str);
       if (!mIsValidWord) PrintMessage ($"{str} is not a valid word!", Yellow);
-      else if (str == mSecretWord) {
-         PrintMessage ($"You found word in {mPtr / mCols} tries");
-         mGameOver = mFoundWord = true;
-      }
+      mGameOver = mFoundWord = str == mSecretWord;
    }
    #endregion
 
