@@ -3,12 +3,12 @@ using static Order;
 
 while (true) {
    GetString ("Enter the letters: ", out var letters);
-   GetChar ("Enter the reference letter: ", out var refChar);
+   GetChar ("Enter the special character: ", out var splChar);
    WriteLine ();
    GetChar ("Type \'A\' for ascending order or \'D\' for descending order: ", out var ch, true);
    var chars = letters.ToCharArray ();
-   var order = ch is 'd' or 'D' ? Descending : Ascending;
-   Sort (ref chars, refChar, order);
+   var order = char.ToUpper (ch) is 'D' ? Descending : Ascending;
+   chars = Sort (chars, splChar, order);
    Write ($"\nLetters:{letters}\nSorted:");
    foreach (char c in chars) Write (c);
    Write ("\n\nDo you want to continue? (y/n): ");
@@ -18,13 +18,14 @@ while (true) {
 
 // Getting the valid character from the user for the given prompt.
 static void GetChar (string prompt, out char ch, bool askingOrder = false) {
-   var msg = askingOrder ? "either A or D" : "an alphabet";
    Write (prompt);
+   var (msg, msgUpdated) = ("", false);
    while (true) {
       ch = (char)ReadKey ().Key;
       bool isValid = askingOrder ? ch is 'A' or 'a' or 'd' or 'D' : char.IsLetter (ch);
       if (isValid) break;
       ForegroundColor = ConsoleColor.Red;
+      if (!msgUpdated) msg = askingOrder ? "either A or D" : "an alphabet";
       WriteLine ($"\nInput should be {msg}.");
       ResetColor ();
       Write (prompt);
@@ -45,20 +46,20 @@ static void GetString (string prompt, out string response) {
 }
 
 // Sorts the given character array in the given order.
-static void Sort (ref char[] chars, char refChar, Order order = Ascending) {
-   var (i, len, list) = (0, chars.Length, chars.ToList ());
-   var (ptr, increment) = order == Ascending ? (0, 1) : (len - 1, -1);
-   while (ptr >= 0 && ptr < len) {
-      for (int j = 0; j < list.Count; j++) {
-         var tmp = list[j];
-         if (Math.Abs (refChar - tmp) == i) {
-            list.RemoveAt (j--);
-            chars[ptr] = tmp;
-            ptr += increment;
-         }
-      }
-      i++;
+static char[] Sort (char[] chars, char splChar, Order order = Ascending) {
+   splChar = char.ToLower (splChar);
+   var (len, list) = (chars.Length, chars.ToList ());
+   list.RemoveAll (x => x == splChar);
+   var splCharCount = len - list.Count;
+   var (ptr, increment) = order == Ascending ? (0, 1) : (len - (splCharCount + 1), -1);
+   var res = new char[len];
+   while (list.Count > 0) {
+      res[ptr] = list.Min ();
+      list.Remove (res[ptr]);
+      ptr += increment;
+      if (splCharCount > 0) res[len - splCharCount--] = splChar;
    }
+   return res;
 }
 
 public enum Order { Ascending, Descending }
