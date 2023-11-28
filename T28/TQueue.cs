@@ -1,24 +1,29 @@
 ﻿namespace T28 {
+   #region Public Class-----------------------------------------------------------------------------
+   /// <summary> A generic class depicts the typical functionality of the conventional class "Queue".</summary>
    public class TQueue<T> {
-      #region Public Properties
+      #region Public Properties---------------------------------------
+      /// <summary> State of queue either empty or filled.</summary>
       public bool IsEmpty => mUsed is 0;
+      /// <summary> Current capacity of queue to store elements.</summary>
       public int Length => mData.Length;
+      /// <summary> Number of elements currently present in the queue.</summary>
       public int Count => mUsed;
       #endregion
 
-      #region Public Methods
+      #region Public Methods------------------------------------------
 
       /// <summary> Clears the queue and sets the properties to defaults.</summary>
       public void Clear () {
-         mData = new T[Length];
+         Array.Clear (mData);
          (mRead, mUsed, mWrite) = (0, 0, 0);
       }
 
       /// <summary>Returns and removes the first element from the queue.</summary>
       public T Dequeue () {
          if (IsEmpty) throw new InvalidOperationException ("Queue Empty");
-         T t = mData[mRead % Length];
-         mRead++;
+         T t = mData[mRead++];
+         mRead %= Length;
          mUsed--;
          return t;
       }
@@ -40,13 +45,14 @@
       /// <summary> Returns the first element from the queue without removing.</summary>
       public T Peek () {
          if (IsEmpty) throw new InvalidOperationException ("Queue Empty");
-         return mData[mRead % Length];
+         return mData[mRead];
       }
       #endregion
 
-      #region Private Data Members
+      #region Private Fields------------------------------------------
       T[] mData = new T[4];
       int mUsed, mRead, mWrite;
       #endregion
    }
+   #endregion
 }
