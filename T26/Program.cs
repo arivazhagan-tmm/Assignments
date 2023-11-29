@@ -2,7 +2,7 @@
 using static System.Console;
 
 var mList = new MyList<int> ();
-Random r = new ();
+var r = new Random ();
 for (int i = 1; i <= 50; i++) {
    var (tmp1, tmp2) = (r.NextDouble (), r.Next (0, i));
    if (tmp1 <= 0.25) {
