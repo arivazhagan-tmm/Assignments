@@ -32,7 +32,7 @@ namespace T28_Test {
       #endregion
 
       #region Implementation ----------------------------------------
-      /// <summary>Tests the clear functionality by performing count, peek and dequeue tests</summary>
+      //Tests the clear functionality by performing count, peek and dequeue tests
       void TestClear () {
          mQueue.Clear ();
          mTQueue.Clear ();
@@ -41,11 +41,11 @@ namespace T28_Test {
          TestPeek ();
       }
 
-      /// <summary>Tests the queue count using equality assertion</summary>
+      //Tests the queue count using equality assertion
       void TestCount () => AreEqual (mQueue.Count, mTQueue.Count);
 
-      /// <summary>Tests the enqueue functionality by performing count and peek tests</summary>
-      // After Enqueue operation the queue count should be same for defualt and custom queue.
+      //Tests the enqueue functionality by performing count and peek tests.
+      //After Enqueue operation the queue count should be same for defualt and custom queue.
       void TestEnqueue (int val) {
          mQueue.Enqueue (val);
          mTQueue.Enqueue (val);
@@ -53,7 +53,7 @@ namespace T28_Test {
          TestPeek ();
       }
 
-      /// <summary>Tests the arise of exceptions if any invalid operation is performed</summary>
+      //Tests the arise of exceptions if any invalid operation is performed
       bool ThrowsExceptions () {
          bool throwsException = mTQueue.IsEmpty && mTQueue.IsEmpty;
          if (throwsException) {
@@ -65,15 +65,15 @@ namespace T28_Test {
          return throwsException;
       }
 
-      /// <summary>Tests the dequeue functionality using equality assertion</summary>
-      // After dequeue operation the queue count should be same for defualt and custom queue.
+      //Tests the dequeue functionality using equality assertion.
+      //After dequeue operation the queue count should be same for defualt and custom queue.
       void TestDequeue () {
          if (!ThrowsExceptions ()) AreEqual (mTQueue.Dequeue (), mQueue.Dequeue ());
          TestCount ();
       }
 
-      /// <summary>Tests the peek functionality using equality assertion</summary>
-      // After peek operation the queue count should be same for defualt and custom queue.
+      //Tests the peek functionality using equality assertion.
+      //After peek operation the queue count should be same for defualt and custom queue.
       void TestPeek () {
          if (!ThrowsExceptions ()) AreEqual (mTQueue.Peek (), mQueue.Peek ());
          TestCount ();

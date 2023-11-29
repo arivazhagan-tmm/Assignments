@@ -27,8 +27,8 @@
          return t;
       }
 
-      /// <summary>Adds given element at the end of queue.</summary>
-      /// Doubles the queue capacity when the queue is filled to the current capacity.
+      /// <summary>Adds given element at the end of queue</summary>
+      //Doubles the queue capacity when the queue is filled to the current capacity.
       public void Enqueue (T t) {
          if (mUsed == Length) {
             var tmp = new T[2 * mUsed];
