@@ -2,11 +2,11 @@ using T27;
 using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace T27_Test {
-   #region Public Class-----------------------------------------------------------------------------
+   #region Class StackTest--------------------------------------------------------------------------
    /// <summary>A test class which performs sequence of tests for each functionalities of class "TStack"</summary>
    [TestClass]
    public class StackTest {
-      #region Public Methods------------------------------------------
+      #region Methods-------------------------------------------------
       /// <summary> Initiates the testing for stack functionalities.</summary>
       [TestMethod]
       public void InitiateTest () {
@@ -17,7 +17,7 @@ namespace T27_Test {
       }
       #endregion
 
-      #region Private Methods-----------------------------------------
+      #region Implementation------------------------------------------
       /// <summary> Tests the current count elements in the stack using equality assertion.</summary>
       void TestCount () => AreEqual (mTStack.Count, mStack.Count);
 
@@ -55,7 +55,7 @@ namespace T27_Test {
       }
       #endregion
 
-      #region Private Fields------------------------------------------
+      #region Private data--------------------------------------------
       Stack<int> mStack = new ();
       TStack<int> mTStack = new ();
       #endregion

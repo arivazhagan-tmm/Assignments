@@ -1,10 +1,9 @@
 ﻿namespace T27;
 
-#region Public Class--------------------------------------------------------------------------------
+#region Class TStack--------------------------------------------------------------------------------
 /// <summary> A generic class depicts the typical functionality of the conventional class "Stack".</summary>
 public class TStack<T> {
-
-   #region Public Properties------------------------------------------
+   #region Properties-------------------------------------------------
    /// <summary>State of stack either empty or filled.</summary>
    public bool IsEmpty => mPointer is 0;
    /// <summary> Current capacity of the stack to store elements.</summary>
@@ -13,7 +12,7 @@ public class TStack<T> {
    public int Count => mPointer;
    #endregion
 
-   #region Public Methods---------------------------------------------
+   #region Methods----------------------------------------------------
    /// <summary> Pushes the given element into the stack.</summary>
    // Doubles the stack capacity when the stack is completely filled to the current capacity.
    public void Push (T a) {
@@ -46,7 +45,7 @@ public class TStack<T> {
    }
    #endregion
 
-   #region Private Fields---------------------------------------------
+   #region Private data-----------------------------------------------
    T[] mElements = new T[4];
    int mPointer;
    #endregion
