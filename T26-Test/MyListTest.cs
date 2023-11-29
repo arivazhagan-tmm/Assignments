@@ -20,7 +20,7 @@ namespace T26_Test {
       #endregion
 
       #region Implementation ----------------------------------------
-      /// <summary>Tests the add functionality using equality assertion</summary>
+      //Tests the add functionality using equality assertion
       void TestAdd () {
          int[] values = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
          foreach (var val in values) {
@@ -33,14 +33,14 @@ namespace T26_Test {
          AreNotEqual (mMyList[^1], mList[^1]);
       }
 
-      /// <summary>Tests the clear functionality using equality assertion of list properties</summary>
+      //Tests the clear functionality using equality assertion of list properties
       void TestClear () {
          mList.Clear ();
          mMyList.Clear ();
          TestProperties ();
       }
 
-      /// <summary>Tests whether the exceptions thrown for invalid operations</summary>
+      //Tests whether the exceptions thrown for invalid operations
       void TestExceptions () {
          var (index, value) = (5, 10);
          Action remove = () => mMyList.RemoveAt (index),
@@ -53,7 +53,7 @@ namespace T26_Test {
          ThrowsException<IndexOutOfRangeException> (retrieve);
       }
 
-      /// <summary>Tests the insert functionality using equality assertion</summary>
+      //Tests the insert functionality using equality assertion
       void TestInsert () {
          var (index, value) = (3, 10);
          mList.Insert (index, value);
@@ -62,13 +62,13 @@ namespace T26_Test {
          AreEqual (mMyList[index], mList[index]);
       }
 
-      /// <summary>Tests the properties using equality assertion</summary>
+      //Tests the properties using equality assertion
       void TestProperties () {
          AreEqual (mMyList.Count, mList.Count);
          AreEqual (mMyList.Capacity, mList.Capacity);
       }
 
-      /// <summary>Tests the remove functionality using boolean assertion</summary>
+      //Tests the remove functionality using boolean assertion
       void TestRemove () {
          int val = 5;
          mList.Remove (val);
@@ -78,7 +78,7 @@ namespace T26_Test {
          IsFalse (mMyList.Remove (val));
       }
 
-      /// <summary>Tests the removeAt functionality using boolean assertion</summary>
+      //Tests the removeAt functionality using boolean assertion
       void TestRemoveAt () {
          int index = 3;
          mList.RemoveAt (index);

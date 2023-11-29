@@ -17,12 +17,12 @@
       /// <summary>Maximum number of elements that can be stored in the list</summary>
       public int Capacity => mCapacity;
       /// <summary>Returns the element present in the given valid index</summary>
-      public T this[int index]{
-         get{
+      public T this[int index] {
+         get {
             ValidateIndex (index);
             return mElements[index];
          }
-         set{
+         set {
             ValidateIndex (index);
             mElements[index] = value;
          }
@@ -30,8 +30,8 @@
       #endregion
 
       #region Methods -----------------------------------------------
-      /// <summary>Adds given element into the list.</summary>
-      ///Doubles the list capacity when it is completly filled.
+      /// <summary>Adds given element into the list</summary>
+      //Doubles the list capacity when it is completly filled.
       public void Add (T a) {
          Update ();
          mElements[mCount++] = a;
@@ -43,9 +43,9 @@
          Array.Clear (mElements);
       }
 
-      /// <summary>Inserts the given element at the given index.</summary>
-      ///Throws an exception if the given index is not in the valid range.
-      ///Doubles the list capacity if it is filled to current capacity.
+      /// <summary>Inserts the given element at the given index</summary>
+      //Throws an exception if the given index is not in the valid range.
+      //Doubles the list capacity if it is filled to current capacity.
       public void Insert (int index, T a) {
          ValidateArgument (index);
          Update ();
@@ -54,8 +54,8 @@
          mCount++;
       }
 
-      /// <summary>Removes given element from list.</summary>
-      ///Throws an exception if the given element is not present in the list.
+      /// <summary>Removes given element from list</summary>
+      //Throws an exception if the given element is not present in the list.
       public bool Remove (T a) {
          var index = Array.IndexOf (mElements, a);
          if (index == -1) return false;
@@ -63,8 +63,8 @@
          return true;
       }
 
-      /// <summary>Removes the element present in given index.</summary>
-      ///Throws an exception if the given index is not in the valid range.
+      /// <summary>Removes the element present in given index</summary>
+      //Throws an exception if the given index is not in the valid range.
       public void RemoveAt (int index) {
          ValidateArgument (index);
          for (int i = index; i < mCount - 1; i++) mElements[i] = mElements[i + 1];
