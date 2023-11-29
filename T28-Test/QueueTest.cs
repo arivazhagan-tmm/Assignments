@@ -2,12 +2,12 @@ using T28;
 using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace T28_Test {
-   #region Public Class-----------------------------------------------------------------------------
+   #region class QueueTest ------------------------------------------------------------------------
    /// <summary>A test class which performs sequence of tests for each functionalities of class "TQueue"</summary>
    [TestClass]
    public class QueueTest {
-      #region Public Methods------------------------------------------
-      /// <summary> Initializes test for all functionalities in TQueue.</summary>
+      #region Methods -----------------------------------------------
+      /// <summary>Initializes test for all functionalities in TQueue</summary>
       [TestMethod]
       public void InitializeTest () {
          var r = new Random ();
@@ -31,9 +31,8 @@ namespace T28_Test {
       }
       #endregion
 
-      #region Private Methods-----------------------------------------
-
-      /// <summary>Tests the clear functionality by performing count, peek and dequeue tests.</summary>
+      #region Implementation ----------------------------------------
+      /// <summary>Tests the clear functionality by performing count, peek and dequeue tests</summary>
       void TestClear () {
          mQueue.Clear ();
          mTQueue.Clear ();
@@ -45,8 +44,8 @@ namespace T28_Test {
       /// <summary>Tests the queue count using equality assertion</summary>
       void TestCount () => AreEqual (mQueue.Count, mTQueue.Count);
 
-      /// <summary> Tests the enqueue functionality by performing count and peek tests. </summary>
-      // After Enqueue operation the queue count should be same for defualt and custome queue.
+      /// <summary>Tests the enqueue functionality by performing count and peek tests</summary>
+      // After Enqueue operation the queue count should be same for defualt and custom queue.
       void TestEnqueue (int val) {
          mQueue.Enqueue (val);
          mTQueue.Enqueue (val);
@@ -54,7 +53,7 @@ namespace T28_Test {
          TestPeek ();
       }
 
-      /// <summary> Tests the arise of exceptions if any invalid operation is performed. </summary>
+      /// <summary>Tests the arise of exceptions if any invalid operation is performed</summary>
       bool ThrowsExceptions () {
          bool throwsException = mTQueue.IsEmpty && mTQueue.IsEmpty;
          if (throwsException) {
@@ -66,22 +65,22 @@ namespace T28_Test {
          return throwsException;
       }
 
-      /// <summary> Tests the dequeue functionality using equality assertion.</summary>
-      // After dequeue operation the queue count should be same for defualt and custome queue.
+      /// <summary>Tests the dequeue functionality using equality assertion</summary>
+      // After dequeue operation the queue count should be same for defualt and custom queue.
       void TestDequeue () {
          if (!ThrowsExceptions ()) AreEqual (mTQueue.Dequeue (), mQueue.Dequeue ());
          TestCount ();
       }
 
-      /// <summary> Tests the peek functionality using equality assertion.</summary>
-      // After peek operation the queue count should be same for defualt and custome queue.
+      /// <summary>Tests the peek functionality using equality assertion</summary>
+      // After peek operation the queue count should be same for defualt and custom queue.
       void TestPeek () {
          if (!ThrowsExceptions ()) AreEqual (mTQueue.Peek (), mQueue.Peek ());
          TestCount ();
       }
       #endregion
 
-      #region Private Fields------------------------------------
+      #region Private data ------------------------------------------
       Queue<int> mQueue = new ();
       TQueue<int> mTQueue = new ();
       #endregion

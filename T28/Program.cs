@@ -13,10 +13,8 @@ Action action;
 for (int i = 0; i < 300; i++) {
    var tmp = numbers[i];
    action = tmp switch {
-      <= 100 => () => { if (!q.IsEmpty) Write ($"Dequeued: {q.Dequeue ()}\n"); }
-      ,
-      <= 200 and > 100 => () => { if (!q.IsEmpty) Write ($"Peeked: {q.Peek ()}\n"); }
-      ,
+      <= 100 => () => { if (!q.IsEmpty) Write ($"Dequeued: {q.Dequeue ()}\n"); },
+      <= 200 and > 100 => () => { if (!q.IsEmpty) Write ($"Peeked: {q.Peek ()}\n"); },
       <= 300 and > 280 => q.Clear,
       _ => () => { q.Enqueue (tmp); Write ($"Enqueued: {tmp}\n"); }
    };
