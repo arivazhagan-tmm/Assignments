@@ -2,12 +2,12 @@ using T27;
 using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace T27_Test {
-   #region Class StackTest--------------------------------------------------------------------------
-   /// <summary>A test class which performs sequence of tests for each functionalities of class "TStack"</summary>
+   #region class StackTest ------------------------------------------------------------------------
+   /// <summary>A test class performs sequence of tests for each functionalities of class "TStack"</summary>
    [TestClass]
    public class StackTest {
-      #region Methods-------------------------------------------------
-      /// <summary> Initiates the testing for stack functionalities.</summary>
+      #region Methods -----------------------------------------------
+      /// <summary>Initiates the testing for stack functionalities</summary>
       [TestMethod]
       public void InitiateTest () {
          TestPush ();
@@ -17,11 +17,11 @@ namespace T27_Test {
       }
       #endregion
 
-      #region Implementation------------------------------------------
-      /// <summary> Tests the current count elements in the stack using equality assertion.</summary>
+      #region Implementation ----------------------------------------
+      /// <summary>Tests the current count elements in the stack using equality assertion</summary>
       void TestCount () => AreEqual (mTStack.Count, mStack.Count);
 
-      /// <summary> Tests the arise of exceptions when invalid operation is performed.</summary>
+      /// <summary>Tests the arise of exceptions when invalid operation is performed</summary>
       void TestExceptions () {
          mStack.Clear ();
          mTStack.Clear ();
@@ -35,13 +35,13 @@ namespace T27_Test {
          ThrowsException<InvalidOperationException> (mTStackPop);
       }
 
-      /// <summary> Tests the peek functionality using equality assertion.</summary>
+      /// <summary>Tests the peek functionality using equality assertion</summary>
       void TestPeek () => AreEqual (mTStack.Peek (), mStack.Peek ());
 
-      /// <summary> Tests the pop functionality using equality assertion.</summary>
+      /// <summary>Tests the pop functionality using equality assertion</summary>
       void TestPop () => AreEqual (mTStack.Pop (), mStack.Pop ());
 
-      /// <summary> Tests the push functionality using equality assertion.</summary>
+      /// <summary>Tests the push functionality using equality assertion</summary>
       // Tests the count of the elements in the stack and TStack.
       // Tests the equality of recently pushed elements.
       void TestPush () {
@@ -55,7 +55,7 @@ namespace T27_Test {
       }
       #endregion
 
-      #region Private data--------------------------------------------
+      #region Private data ------------------------------------------
       Stack<int> mStack = new ();
       TStack<int> mTStack = new ();
       #endregion
