@@ -1,9 +1,9 @@
 ﻿namespace T26 {
-   #region Public Class-----------------------------------------------------------------------------
+   #region Class MyList-----------------------------------------------------------------------------
    /// <summary> A generic class depicts the typical functionality of the conventional class "List".</summary>
    /// <typeparam name="T"></typeparam>
    public class MyList<T> {
-      #region Constructor---------------------------------------------
+      #region Constructors---------------------------------------------
       /// <summary> Initializes the MyList class with default properties.</summary>
       // Default capacity is set to 4, capacity doubles on further addition of elements.
       public MyList () {
@@ -12,28 +12,25 @@
       }
       #endregion
 
-      #region Public Properties---------------------------------------
+      #region Properties----------------------------------------------
       /// <summary>  Number of elements present in the list.</summary>
       public int Count => mCount;
       /// <summary> Maximum number of elements that can be stored in the list.</summary>
       public int Capacity => mCapacity;
       /// <summary> Returns the element present in the given valid index. </summary>
-      public T this[int index]
-      {
-         get
-         {
+      public T this[int index]{
+         get{
             ValidateIndex (index);
             return mElements[index];
          }
-         set
-         {
+         set{
             ValidateIndex (index);
             mElements[index] = value;
          }
       }
       #endregion
 
-      #region Public Methods------------------------------------------
+      #region Methods-------------------------------------------------
       /// <summary> Adds given element into the list. </summary>
       // Doubles the list capacity when it is completly filled.
       public void Add (T a) {
@@ -61,19 +58,10 @@
       /// <summary> Removes given element from list. </summary>
       // Throws an exception if the given element is not present in the list.
       public bool Remove (T a) {
-         bool removed = false;
-         var (i, j) = (0, 0);
-         for (; i < mCount; i++) {
-            T tmp = mElements[i];
-            if (!removed && tmp != null && tmp.Equals (a)) {
-               j++;
-               mCount--;
-               removed = true;
-            }
-            mElements[i] = mElements[i + j];
-         }
-         mElements[mCount] = default!;
-         return removed;
+         var index = Array.IndexOf (mElements, a);
+         if (index == -1) return false;
+         RemoveAt (index);
+         return true;
       }
 
       /// <summary> Removes the element present in given index. </summary>
@@ -81,11 +69,12 @@
       public void RemoveAt (int index) {
          ValidateArgument (index);
          for (int i = index; i < mCount - 1; i++) mElements[i] = mElements[i + 1];
+         mElements[mCount] = default!;
          mCount--;
       }
       #endregion
 
-      #region Private Methods-----------------------------------------
+      #region Implementation------------------------------------------
       // Returns whether the given value is present in the valid range or not.
       bool IsInvalid (int val) => val < 0 || val >= mCount;
 
@@ -110,7 +99,7 @@
       }
       #endregion
 
-      #region Private Fields------------------------------------------
+      #region Private data--------------------------------------------
       T[] mElements;
       int mCount;
       int mCapacity;

@@ -3,12 +3,6 @@ using static System.Console;
 
 var mList = new MyList<int> ();
 Random r = new ();
-mList.Add (1);
-mList.Add (2);
-mList.Add (3);
-mList.Add (4);
-mList.Add (5);
-mList.Remove (1);
 for (int i = 1; i <= 50; i++) {
    var (tmp1, tmp2) = (r.NextDouble (), r.Next (0, i));
    if (tmp1 <= 0.25) {
@@ -33,6 +27,7 @@ for (int i = 1; i <= 50; i++) {
 ForegroundColor = ConsoleColor.White;
 WriteLine ($"\nList count is {mList.Count} and capacity is {mList.Capacity}");
 
+// Prints all the elements in the list to console window.
 void ShowList () {
    ResetColor ();
    if (mList?.Count > 0) {

@@ -2,11 +2,11 @@ using T26;
 using static Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace T26_Test {
-   #region Public Class-----------------------------------------------------------------------------
+   #region Class MyListTest-------------------------------------------------------------------------
    /// <summary> A test class which performs sequence of tests for each functionalities of class "MyList"</summary>
    [TestClass]
    public class MyListTest {
-      #region Public Methods------------------------------------------
+      #region Methods-------------------------------------------------
       [TestMethod]
       /// <summary> Initiates the testing of each list functionalities. </summary>
       public void InitiateTest () {
@@ -19,7 +19,7 @@ namespace T26_Test {
       }
       #endregion
 
-      #region Private Methods-----------------------------------------
+      #region Implementation------------------------------------------
       /// <summary> Tests the add functionality using equality assertion.</summary>
       void TestAdd () {
          int[] values = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
@@ -88,7 +88,7 @@ namespace T26_Test {
       }
       #endregion
 
-      #region Private Fields------------------------------------------
+      #region Private data--------------------------------------------
       List<int> mList = new ();
       MyList<int> mMyList = new ();
       #endregion
