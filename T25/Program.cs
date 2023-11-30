@@ -7,7 +7,7 @@ while (true) {
    WriteLine ();
    GetChar ("Type \'A\' for ascending order or \'D\' for descending order: ", out var ch, true);
    var chars = letters.ToCharArray ();
-   var order = ch is 'D' ? Descending : Ascending;
+   var order = ch is 'd' ? Descending : Ascending;
    chars = Sort (chars, splChar, order);
    Write ($"\nLetters:{letters}\nSorted:");
    foreach (char c in chars) Write (c);
@@ -20,8 +20,9 @@ while (true) {
 static void GetChar (string prompt, out char ch, bool askingOrder = false) {
    Write (prompt);
    while (true) {
-      ch = char.ToUpper ((char)ReadKey ().Key);
-      bool isValid = askingOrder ? ch is 'A' or 'D' : char.IsLetter (ch);
+      ch = ReadKey ().KeyChar;
+      ch = char.ToLower (ch);
+      bool isValid = askingOrder ? ch is 'a' or 'd' : char.IsLetter (ch);
       if (isValid) break;
       ForegroundColor = ConsoleColor.Red;
       WriteLine ($"\nInput should be {(askingOrder ? "either A or D" : "an alphabet")}.");
@@ -45,10 +46,20 @@ static void GetString (string prompt, out string response) {
 
 //Sorts and returns the given character array in the given order.
 static char[] Sort (char[] chars, char splChar, Order order = Ascending) {
-   splChar = char.ToLower (splChar);
-   char[] a = chars.Where (c => c != splChar).ToArray ();
-   var sortedArr = order == Ascending ? a.Order () : a.OrderDescending ();
-   return sortedArr.Concat (chars.Where (c => c == splChar)).ToArray ();
+   var upperChar = char.ToUpper (splChar);
+   var a = chars.Where (c => c != splChar && c != upperChar);
+   var comparer = new CharComparer ();
+   var sortedArr = order == Ascending ? a.Order (comparer) : a.OrderDescending (comparer);
+   return sortedArr.Concat (chars.Where (c => c == splChar || c == upperChar)).ToArray ();
 }
 
 public enum Order { Ascending, Descending }
+
+public class CharComparer : IComparer<char> {
+   public int Compare (char x, char y) {
+      var (ch1, ch2) = (char.ToLower (x), char.ToLower (y));
+      if (ch1 == ch2) return 0;
+      if (ch1 > ch2) return 1;
+      return -1;
+   }
+}
