@@ -8,4 +8,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="data\FileNameParser_RailwayDiagram.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="data\FileNameParser_RailwayDiagram.png" />
+  </ItemGroup>
+
 </Project>

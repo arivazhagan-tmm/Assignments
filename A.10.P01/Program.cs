@@ -9,7 +9,8 @@ foreach (var testCase in testCases) {
    Console.WriteLine ($" Directory: {dir}\n File path: {path}\n File Name: {file}\n Extension: {extn}\n");
 }
 
-// Returns the four substring of the given string.
+//Returns the four substring of the given string
+//Refer the railway diagram for this state machine in "A.10.P01\data\FileNameParser_RailwayDiagram"
 (string dir, string path, string file, string extn) ParseFileName (string str) {
    State state = A;
    Action none = () => { }, todo;
