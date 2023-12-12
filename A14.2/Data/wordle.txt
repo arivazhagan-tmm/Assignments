@@ -1,0 +1,1050 @@
+
+
+                                                           ◌   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                                 A     B     C     D     E     F     G
+
+                                                 H     I     J     K     L     M     N
+
+                                                 O     P     Q     R     S     T     U
+
+                                                 V     W     X     Y     Z
+
+If user presses any key other than alphabets, enter, backspace, leftarrow the warning message is: Please enter valid input!
+
+
+                                                           H   ◌   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                                 A     B     C     D     E     F     G
+
+                                                 H     I     J     K     L     M     N
+
+                                                 O     P     Q     R     S     T     U
+
+                                                 V     W     X     Y     Z
+
+
+
+                                                           H   A   ◌   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                                 A     B     C     D     E     F     G
+
+                                                 H     I     J     K     L     M     N
+
+                                                 O     P     Q     R     S     T     U
+
+                                                 V     W     X     Y     Z
+
+
+
+                                                           H   A   C   ◌   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                                 A     B     C     D     E     F     G
+
+                                                 H     I     J     K     L     M     N
+
+                                                 O     P     Q     R     S     T     U
+
+                                                 V     W     X     Y     Z
+
+
+
+                                                           H   A   C   K   ◌
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                                 A     B     C     D     E     F     G
+
+                                                 H     I     J     K     L     M     N
+
+                                                 O     P     Q     R     S     T     U
+
+                                                 V     W     X     Y     Z
+
+
+
+                                                           H   A   C   K   ◌
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                                 A     B     C     D     E     F     G
+
+                                                 H     I     J     K     L     M     N
+
+                                                 O     P     Q     R     S     T     U
+
+                                                 V     W     X     Y     Z
+
+                     If user presses 'Enter' key, warning message is: Word should contain 5 letters!
+
+
+                                                           H   A   C   K   S
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                                 A     B     C     D     E     F     G
+
+                                                 H     I     J     K     L     M     N
+
+                                                 O     P     Q     R     S     T     U
+
+                                                 V     W     X     Y     Z
+
+
+
+                                                           H   A   C   K   S
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                                 A     B     C     D     E     F     G
+
+                                                 H     I     J     K     L     M     N
+
+                                                 O     P     Q     R     S     T     U
+
+                                                 V     W     X     Y     Z
+
+                  If user presses one more key, warning message is: Press 'Enter' to check the word!
+
+
+                                                         {H} {A} (C) (K) (S)
+
+                                                           L   ◌   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                               {A}     B   (C)     D     E     F     G
+
+                                               {H}     I     J   (K)     L     M     N
+
+                                                 O     P     Q     R   (S)     T     U
+
+                                                 V     W     X     Y     Z
+
+
+
+                                                         {H} {A} (C) (K) (S)
+
+                                                           L   A   ◌   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                               {A}     B   (C)     D     E     F     G
+
+                                               {H}     I     J   (K)     L     M     N
+
+                                                 O     P     Q     R   (S)     T     U
+
+                                                 V     W     X     Y     Z
+
+
+
+                                                         {H} {A} (C) (K) (S)
+
+                                                           L   A   N   ◌   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                               {A}     B   (C)     D     E     F     G
+
+                                               {H}     I     J   (K)     L     M     N
+
+                                                 O     P     Q     R   (S)     T     U
+
+                                                 V     W     X     Y     Z
+
+
+
+                                                         {H} {A} (C) (K) (S)
+
+                                                           L   A   N   K   ◌
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                               {A}     B   (C)     D     E     F     G
+
+                                               {H}     I     J   (K)     L     M     N
+
+                                                 O     P     Q     R   (S)     T     U
+
+                                                 V     W     X     Y     Z
+
+
+
+                                                         {H} {A} (C) (K) (S)
+
+                                                           L   A   N   K   ◌
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                               {A}     B   (C)     D     E     F     G
+
+                                               {H}     I     J   (K)     L     M     N
+
+                                                 O     P     Q     R   (S)     T     U
+
+                                                 V     W     X     Y     Z
+
+                     If user presses 'Enter' key, warning message is: Word should contain 5 letters!
+
+
+                                                         {H} {A} (C) (K) (S)
+
+                                                           L   A   N   K   Y
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                               {A}     B   (C)     D     E     F     G
+
+                                               {H}     I     J   (K)     L     M     N
+
+                                                 O     P     Q     R   (S)     T     U
+
+                                                 V     W     X     Y     Z
+
+
+
+                                                         {H} {A} (C) (K) (S)
+
+                                                           L   A   N   K   Y
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                               {A}     B   (C)     D     E     F     G
+
+                                               {H}     I     J   (K)     L     M     N
+
+                                                 O     P     Q     R   (S)     T     U
+
+                                                 V     W     X     Y     Z
+
+                  If user presses one more key, warning message is: Press 'Enter' to check the word!
+
+
+                                                         {H} {A} (C) (K) (S)
+
+                                                         (L) {A} [N] (K) (Y)
+
+                                                           G   ◌   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                               {A}     B   (C)     D     E     F     G
+
+                                               {H}     I     J   (K)   (L)     M   [N]
+
+                                                 O     P     Q     R   (S)     T     U
+
+                                                 V     W     X   (Y)     Z
+
+
+
+                                                         {H} {A} (C) (K) (S)
+
+                                                         (L) {A} [N] (K) (Y)
+
+                                                           G   R   ◌   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                               {A}     B   (C)     D     E     F     G
+
+                                               {H}     I     J   (K)   (L)     M   [N]
+
+                                                 O     P     Q     R   (S)     T     U
+
+                                                 V     W     X   (Y)     Z
+
+
+
+                                                         {H} {A} (C) (K) (S)
+
+                                                         (L) {A} [N] (K) (Y)
+
+                                                           G   R   U   ◌   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                               {A}     B   (C)     D     E     F     G
+
+                                               {H}     I     J   (K)   (L)     M   [N]
+
+                                                 O     P     Q     R   (S)     T     U
+
+                                                 V     W     X   (Y)     Z
+
+
+
+                                                         {H} {A} (C) (K) (S)
+
+                                                         (L) {A} [N] (K) (Y)
+
+                                                           G   R   U   B   ◌
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                               {A}     B   (C)     D     E     F     G
+
+                                               {H}     I     J   (K)   (L)     M   [N]
+
+                                                 O     P     Q     R   (S)     T     U
+
+                                                 V     W     X   (Y)     Z
+
+
+
+                                                         {H} {A} (C) (K) (S)
+
+                                                         (L) {A} [N] (K) (Y)
+
+                                                           G   R   U   B   ◌
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                               {A}     B   (C)     D     E     F     G
+
+                                               {H}     I     J   (K)   (L)     M   [N]
+
+                                                 O     P     Q     R   (S)     T     U
+
+                                                 V     W     X   (Y)     Z
+
+                     If user presses 'Enter' key, warning message is: Word should contain 5 letters!
+
+
+                                                         {H} {A} (C) (K) (S)
+
+                                                         (L) {A} [N] (K) (Y)
+
+                                                           G   R   U   B   S
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                               {A}     B   (C)     D     E     F     G
+
+                                               {H}     I     J   (K)   (L)     M   [N]
+
+                                                 O     P     Q     R   (S)     T     U
+
+                                                 V     W     X   (Y)     Z
+
+
+
+                                                         {H} {A} (C) (K) (S)
+
+                                                         (L) {A} [N] (K) (Y)
+
+                                                           G   R   U   B   S
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                               {A}     B   (C)     D     E     F     G
+
+                                               {H}     I     J   (K)   (L)     M   [N]
+
+                                                 O     P     Q     R   (S)     T     U
+
+                                                 V     W     X   (Y)     Z
+
+                  If user presses one more key, warning message is: Press 'Enter' to check the word!
+
+
+                                                         {H} {A} (C) (K) (S)
+
+                                                         (L) {A} [N] (K) (Y)
+
+                                                         (G) (R) {U} (B) (S)
+
+                                                           S   ◌   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                               {A}   (B)   (C)     D     E     F   (G)
+
+                                               {H}     I     J   (K)   (L)     M   [N]
+
+                                                 O     P     Q   (R)   (S)     T   {U}
+
+                                                 V     W     X   (Y)     Z
+
+
+
+                                                         {H} {A} (C) (K) (S)
+
+                                                         (L) {A} [N] (K) (Y)
+
+                                                         (G) (R) {U} (B) (S)
+
+                                                           S   T   ◌   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                               {A}   (B)   (C)     D     E     F   (G)
+
+                                               {H}     I     J   (K)   (L)     M   [N]
+
+                                                 O     P     Q   (R)   (S)     T   {U}
+
+                                                 V     W     X   (Y)     Z
+
+
+
+                                                         {H} {A} (C) (K) (S)
+
+                                                         (L) {A} [N] (K) (Y)
+
+                                                         (G) (R) {U} (B) (S)
+
+                                                           S   T   A   ◌   ·
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                               {A}   (B)   (C)     D     E     F   (G)
+
+                                               {H}     I     J   (K)   (L)     M   [N]
+
+                                                 O     P     Q   (R)   (S)     T   {U}
+
+                                                 V     W     X   (Y)     Z
+
+
+
+                                                         {H} {A} (C) (K) (S)
+
+                                                         (L) {A} [N] (K) (Y)
+
+                                                         (G) (R) {U} (B) (S)
+
+                                                           S   T   A   N   ◌
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                               {A}   (B)   (C)     D     E     F   (G)
+
+                                               {H}     I     J   (K)   (L)     M   [N]
+
+                                                 O     P     Q   (R)   (S)     T   {U}
+
+                                                 V     W     X   (Y)     Z
+
+
+
+                                                         {H} {A} (C) (K) (S)
+
+                                                         (L) {A} [N] (K) (Y)
+
+                                                         (G) (R) {U} (B) (S)
+
+                                                           S   T   A   N   ◌
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                               {A}   (B)   (C)     D     E     F   (G)
+
+                                               {H}     I     J   (K)   (L)     M   [N]
+
+                                                 O     P     Q   (R)   (S)     T   {U}
+
+                                                 V     W     X   (Y)     Z
+
+                     If user presses 'Enter' key, warning message is: Word should contain 5 letters!
+
+
+                                                         {H} {A} (C) (K) (S)
+
+                                                         (L) {A} [N] (K) (Y)
+
+                                                         (G) (R) {U} (B) (S)
+
+                                                           S   T   A   N   D
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                               {A}   (B)   (C)     D     E     F   (G)
+
+                                               {H}     I     J   (K)   (L)     M   [N]
+
+                                                 O     P     Q   (R)   (S)     T   {U}
+
+                                                 V     W     X   (Y)     Z
+
+
+
+                                                         {H} {A} (C) (K) (S)
+
+                                                         (L) {A} [N] (K) (Y)
+
+                                                         (G) (R) {U} (B) (S)
+
+                                                           S   T   A   N   D
+
+                                                           ·   ·   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                               {A}   (B)   (C)     D     E     F   (G)
+
+                                               {H}     I     J   (K)   (L)     M   [N]
+
+                                                 O     P     Q   (R)   (S)     T   {U}
+
+                                                 V     W     X   (Y)     Z
+
+                  If user presses one more key, warning message is: Press 'Enter' to check the word!
+
+
+                                                         {H} {A} (C) (K) (S)
+
+                                                         (L) {A} [N] (K) (Y)
+
+                                                         (G) (R) {U} (B) (S)
+
+                                                         (S) [T] [A] {N} (D)
+
+                                                           D   ◌   ·   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                               {A}   (B)   (C)   (D)     E     F   (G)
+
+                                               {H}     I     J   (K)   (L)     M   {N}
+
+                                                 O     P     Q   (R)   (S)   [T]   {U}
+
+                                                 V     W     X   (Y)     Z
+
+
+
+                                                         {H} {A} (C) (K) (S)
+
+                                                         (L) {A} [N] (K) (Y)
+
+                                                         (G) (R) {U} (B) (S)
+
+                                                         (S) [T] [A] {N} (D)
+
+                                                           D   O   ◌   ·   ·
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                               {A}   (B)   (C)   (D)     E     F   (G)
+
+                                               {H}     I     J   (K)   (L)     M   {N}
+
+                                                 O     P     Q   (R)   (S)   [T]   {U}
+
+                                                 V     W     X   (Y)     Z
+
+
+
+                                                         {H} {A} (C) (K) (S)
+
+                                                         (L) {A} [N] (K) (Y)
+
+                                                         (G) (R) {U} (B) (S)
+
+                                                         (S) [T] [A] {N} (D)
+
+                                                           D   O   U   ◌   ·
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                               {A}   (B)   (C)   (D)     E     F   (G)
+
+                                               {H}     I     J   (K)   (L)     M   {N}
+
+                                                 O     P     Q   (R)   (S)   [T]   {U}
+
+                                                 V     W     X   (Y)     Z
+
+
+
+                                                         {H} {A} (C) (K) (S)
+
+                                                         (L) {A} [N] (K) (Y)
+
+                                                         (G) (R) {U} (B) (S)
+
+                                                         (S) [T] [A] {N} (D)
+
+                                                           D   O   U   B   ◌
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                               {A}   (B)   (C)   (D)     E     F   (G)
+
+                                               {H}     I     J   (K)   (L)     M   {N}
+
+                                                 O     P     Q   (R)   (S)   [T]   {U}
+
+                                                 V     W     X   (Y)     Z
+
+
+
+                                                         {H} {A} (C) (K) (S)
+
+                                                         (L) {A} [N] (K) (Y)
+
+                                                         (G) (R) {U} (B) (S)
+
+                                                         (S) [T] [A] {N} (D)
+
+                                                           D   O   U   B   ◌
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                               {A}   (B)   (C)   (D)     E     F   (G)
+
+                                               {H}     I     J   (K)   (L)     M   {N}
+
+                                                 O     P     Q   (R)   (S)   [T]   {U}
+
+                                                 V     W     X   (Y)     Z
+
+                     If user presses 'Enter' key, warning message is: Word should contain 5 letters!
+
+
+                                                         {H} {A} (C) (K) (S)
+
+                                                         (L) {A} [N] (K) (Y)
+
+                                                         (G) (R) {U} (B) (S)
+
+                                                         (S) [T] [A] {N} (D)
+
+                                                           D   O   U   B   T
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                               {A}   (B)   (C)   (D)     E     F   (G)
+
+                                               {H}     I     J   (K)   (L)     M   {N}
+
+                                                 O     P     Q   (R)   (S)   [T]   {U}
+
+                                                 V     W     X   (Y)     Z
+
+
+
+                                                         {H} {A} (C) (K) (S)
+
+                                                         (L) {A} [N] (K) (Y)
+
+                                                         (G) (R) {U} (B) (S)
+
+                                                         (S) [T] [A] {N} (D)
+
+                                                           D   O   U   B   T
+
+                                                           ·   ·   ·   ·   ·
+
+
+
+                                               {A}   (B)   (C)   (D)     E     F   (G)
+
+                                               {H}     I     J   (K)   (L)     M   {N}
+
+                                                 O     P     Q   (R)   (S)   [T]   {U}
+
+                                                 V     W     X   (Y)     Z
+
+                  If user presses one more key, warning message is: Press 'Enter' to check the word!
+
+
+                                                         {H} {A} (C) (K) (S)
+
+                                                         (L) {A} [N] (K) (Y)
+
+                                                         (G) (R) {U} (B) (S)
+
+                                                         (S) [T] [A] {N} (D)
+
+                                                         (D) (O) {U} (B) {T}
+
+                                                           A   E   I   O   U
+
+
+
+                                               {A}   (B)   (C)   (D)     E     F   (G)
+
+                                               {H}     I     J   (K)   (L)     M   {N}
+
+                                               (O)     P     Q   (R)   (S)   {T}   {U}
+
+                                                 V     W     X   (Y)     Z
+
+                     If user submits an invalid word, warning message is: AEIOU is not a valid word!
+
+
+                                                         {H} {A} (C) (K) (S)
+
+                                                         (L) {A} [N] (K) (Y)
+
+                                                         (G) (R) {U} (B) (S)
+
+                                                         (S) [T] [A] {N} (D)
+
+                                                         (D) (O) {U} (B) {T}
+
+                                                           A   E   I   O   ◌
+
+
+
+                                               {A}   (B)   (C)   (D)     E     F   (G)
+
+                                               {H}     I     J   (K)   (L)     M   {N}
+
+                                               (O)     P     Q   (R)   (S)   {T}   {U}
+
+                                                 V     W     X   (Y)     Z
+
+                                                         User pressed back space
+
+
+                                                         {H} {A} (C) (K) (S)
+
+                                                         (L) {A} [N] (K) (Y)
+
+                                                         (G) (R) {U} (B) (S)
+
+                                                         (S) [T] [A] {N} (D)
+
+                                                         (D) (O) {U} (B) {T}
+
+                                                           A   E   I   ◌   ·
+
+
+
+                                               {A}   (B)   (C)   (D)     E     F   (G)
+
+                                               {H}     I     J   (K)   (L)     M   {N}
+
+                                               (O)     P     Q   (R)   (S)   {T}   {U}
+
+                                                 V     W     X   (Y)     Z
+
+                                                         User pressed left arrow
+
+
+                                                         {H} {A} (C) (K) (S)
+
+                                                         (L) {A} [N] (K) (Y)
+
+                                                         (G) (R) {U} (B) (S)
+
+                                                         (S) [T] [A] {N} (D)
+
+                                                         (D) (O) {U} (B) {T}
+
+                                                           A   E   ◌   ·   ·
+
+
+
+                                               {A}   (B)   (C)   (D)     E     F   (G)
+
+                                               {H}     I     J   (K)   (L)     M   {N}
+
+                                               (O)     P     Q   (R)   (S)   {T}   {U}
+
+                                                 V     W     X   (Y)     Z
+
+                                                         User pressed back space
+
+
+                                                         {H} {A} (C) (K) (S)
+
+                                                         (L) {A} [N] (K) (Y)
+
+                                                         (G) (R) {U} (B) (S)
+
+                                                         (S) [T] [A] {N} (D)
+
+                                                         (D) (O) {U} (B) {T}
+
+                                                           A   ◌   ·   ·   ·
+
+
+
+                                               {A}   (B)   (C)   (D)     E     F   (G)
+
+                                               {H}     I     J   (K)   (L)     M   {N}
+
+                                               (O)     P     Q   (R)   (S)   {T}   {U}
+
+                                                 V     W     X   (Y)     Z
+
+                                                         User pressed left arrow
+
+
+                                                         {H} {A} (C) (K) (S)
+
+                                                         (L) {A} [N] (K) (Y)
+
+                                                         (G) (R) {U} (B) (S)
+
+                                                         (S) [T] [A] {N} (D)
+
+                                                         (D) (O) {U} (B) {T}
+
+                                                           ◌   ·   ·   ·   ·
+
+
+
+                                               {A}   (B)   (C)   (D)     E     F   (G)
+
+                                               {H}     I     J   (K)   (L)     M   {N}
+
+                                               (O)     P     Q   (R)   (S)   {T}   {U}
+
+                                                 V     W     X   (Y)     Z
+
+                                                         User pressed back space
+
+
+                                                         {H} {A} (C) (K) (S)
+
+                                                         (L) {A} [N] (K) (Y)
+
+                                                         (G) (R) {U} (B) (S)
+
+                                                         (S) [T] [A] {N} (D)
+
+                                                         (D) (O) {U} (B) {T}
+
+                                                         {H} {A} {U} {N} {T}
+
+
+
+                                               {A}   (B)   (C)   (D)     E     F   (G)
+
+                                               {H}     I     J   (K)   (L)     M   {N}
+
+                                               (O)     P     Q   (R)   (S)   {T}   {U}
+
+                                                 V     W     X   (Y)     Z
+
+                            If user found the secret word, the message is: You found word in 6 tries
