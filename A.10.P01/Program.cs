@@ -1,12 +1,15 @@
 ﻿using System.Text;
 using static State;
 
-var testCases = new string[] { @"C:\ETC\DOCUMENTS\WORDS\GUIDELINES.TXT" ,
+var testCases = new string[] { @"D:\\\\TEST.DLL" ,
+                               @"C:\ETC\DOCUMENTS\WORDS\GUIDELINES.TXT" ,
                                @"C:\USERS\CLEMENT\SOLUTIONFILES\EVALUATOR\BIN\DEBUG\EVAL.DLL",
                                @"E:\USERS\CLEMENT\DESKTOP\PRACTICEDRAWINGS\CBLOCKPART.PDG"};
 foreach (var testCase in testCases) {
    var (dir, path, file, extn) = ParseFileName (testCase);
-   Console.WriteLine ($" Directory: {dir}\n File path: {path}\n File Name: {file}\n Extension: {extn}\n");
+   if (string.IsNullOrEmpty (path) || !path.Any(char.IsLetter)) Console.WriteLine ($" {testCase} is an invalid directory.");
+   else
+      Console.WriteLine ($" Directory: {dir}\n File path: {path}\n File Name: {file}\n Extension: {extn}\n");
 }
 
 //Returns the four substring of the given string
@@ -27,14 +30,14 @@ foreach (var testCase in testCases) {
             index = filePath.ToString ().LastIndexOf ('\\');
             fileName = new string (filePath.ToString ().TakeLast (filePath.Length - (index + 1)).ToArray ());
             filePath = filePath.Remove (index, fileName.Length + 1);
-         }
-         ),
+         }),
          (E, >= 'A' and <= 'Z') => (E, () => extn.Append (ch)),
          (E, '~') => (G, none),
          _ => (G, none)
       };
       todo ();
    }
+   //if (isInvalid) return (str, "Invalid", "File", "Directory");
    return (directory, filePath.ToString (), fileName, extn.ToString ());
 }
 
