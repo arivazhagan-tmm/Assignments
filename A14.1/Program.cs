@@ -1,29 +1,20 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics;
+using System.Reflection;
 
 using var stream = Assembly.GetExecutingAssembly ().GetManifestResourceStream ($"A14_1.data.words.txt");
 using var reader = stream != null ? new StreamReader (stream) : null;
 var words = new List<string> ();
-while (reader != null && !reader.EndOfStream) words.Add (reader?.ReadLine () ?? "");
-var dict = new Dictionary<List<string>, int> ();
-while (words.Count > 0) {
-   var str = Sort (words[0]);
-   var anagrams = words.Where (w => w.Length == str.Length && str == Sort (w)).ToList ();
-   if (anagrams.Count is 0) anagrams.Add (str);
-   dict.Add (anagrams, anagrams.Count);
-   anagrams.ForEach (a => words.Remove (a));
-}
-var sorted = dict.OrderByDescending (a => a.Value);
-// File is generated in the output folder
-using var sw = new StreamWriter ("anagrams.txt");
-foreach (var item in sorted) {
-   var str = $"{item.Value} ";
-   item.Key.ForEach (w => str += $"{w} ");
-   sw.WriteLine(str);
-}
-
-//Sorts and returns the given string
-static string Sort (string str) {
-   var arr = str.ToCharArray ();
-   Array.Sort (arr);
-   return new string (arr);
-}
+if (reader != null) while (!reader.EndOfStream) words.Add (reader.ReadLine () ?? "");
+var dict = new Dictionary<string, List<string>> ();
+words.ForEach (word => {
+   var tmp = new string (word.Order ().ToArray ());
+   if (!dict.TryGetValue (tmp, out var anagrams)) dict.Add (tmp, anagrams = new ());
+   anagrams.Add (word.ToUpper ());
+});
+// File is generated in the data folder
+var path = "../../../data/anagrams.txt";
+using var sw = new StreamWriter (path);
+var result = dict.Where (a => a.Value.Count >= 2).OrderByDescending (a => a.Value.Count);
+foreach (var item in result)
+   sw.WriteLine ($"{item.Value.Count} {string.Join (' ', item.Value)}");
+Process.Start ("notepad.exe", path);
