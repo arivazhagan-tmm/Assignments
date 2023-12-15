@@ -2,7 +2,7 @@ using A15;
 
 namespace A15_Test {
    #region class PriorityQueueTest ----------------------------------------------------------------
-   /// <summary>A test class which performs sequence of tests for each functionalities of class "PriorityQueue"</summary>
+   /// <summary>A test class performs sequence of tests for each functionalities of class "PriorityQueue"</summary>
    [TestClass]
    public class PriorityQueueTest {
       #region Methods -----------------------------------------------

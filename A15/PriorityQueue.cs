@@ -2,8 +2,8 @@
 
 #region class PriorityQueue -----------------------------------------------------------------------
 /// <summary>
-///A generic class depicts the typical functionality of the conventional class "Queue".
-///Dequeue functionality returns the least object present in the queue. 
+/// A generic class depicts the typical functionality of the conventional class "Queue".
+/// Dequeue functionality returns the least object present in the queue. 
 /// </summary>
 public class PriorityQueue<T> where T : IComparable<T> {
    #region Constructor ----------------------------------------------
@@ -58,8 +58,10 @@ public class PriorityQueue<T> where T : IComparable<T> {
 
    #region Private data ---------------------------------------------
    T[] mElements;
-   int mCount; //Number of elements currently present in the queue
-   int mCapacity; //Current capacity of the queue
+   // Number of elements currently present in the queue
+   int mCount;
+   // Current capacity of the queue
+   int mCapacity;
    #endregion
 }
 #endregion

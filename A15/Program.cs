@@ -18,7 +18,7 @@ public class Program {
    #endregion
 
    #region Implementation -------------------------------------------
-   //Displays the functionality of class PriorityQueue
+   // Displays the functionality of class PriorityQueue
    static void Main () {
       var numbers = GenerateRandomNumbers (200);
       var list = new List<int> ();
