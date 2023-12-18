@@ -10,10 +10,11 @@
 
   <ItemGroup>
     <None Remove="data\FileNameParser_RailwayDiagram.png" />
+    <None Remove="data\FileParser_RailwayDiagram.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="data\FileNameParser_RailwayDiagram.png" />
+    <Resource Include="data\FileParser_RailwayDiagram.png" />
   </ItemGroup>
 
 </Project>
