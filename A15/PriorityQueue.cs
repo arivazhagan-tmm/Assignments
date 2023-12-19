@@ -23,29 +23,37 @@ public class PriorityQueue<T> where T : IComparable<T> {
          mElements = tmp;
       }
       mElements[mCount++] = t;
-      var index = mCount - 1;
-      while (index > 0) {
-         var tmp = index / 2;
-         if (mElements[index].CompareTo (mElements[tmp]) >= 0) break;
-         (mElements[tmp], mElements[index]) = (mElements[index], mElements[tmp]);
-         index = tmp;
+      var rChild = mCount - 1;
+      while (rChild > 0) {
+         var lChild = rChild / 2; // Left child
+         var (lValue, rValue) = (mElements[lChild], mElements[rChild]);
+         if (rValue.CompareTo (lValue) >= 0) break;
+         (mElements[lChild], mElements[rChild]) = (rValue, lValue);
+         rChild = lChild;
       }
    }
 
    /// <summary>Returns the element which is least object among the all other elements in the queue</summary>
    public T Dequeue () {
-      var (index, n) = (--mCount, 0);
-      T element = mElements[n];
-      mElements[n] = mElements[index];
-      mElements[index--] = default!;
+      var (index, parent) = (--mCount, 0);
+      T element = mElements[parent];
+      mElements[parent] = mElements[index];
       while (true) {
-         int tmp1 = n * 2;
-         if (tmp1 > index) break;
-         int tmp2 = tmp1 + 1;
-         if (tmp2 <= index && mElements[tmp2].CompareTo (mElements[tmp1]) < 0) tmp1 = tmp2;
-         if (mElements[n].CompareTo (mElements[tmp1]) <= 0) break;
-         (mElements[tmp1], mElements[n]) = (mElements[n], mElements[tmp1]);
-         n = tmp1;
+         // Left child and right child
+         var (lChild, rChild) = (2 * parent, (2 * parent) + 1);
+         if (lChild > index) break;
+         // value stored in parent, left child and right child
+         var (pValue, lValue, rValue) = (mElements[parent], mElements[lChild], mElements[rChild]);
+         // Swapping child values
+         if (rChild <= index && rValue.CompareTo (lValue) < 0) {
+            lValue = mElements[rChild];
+            lChild = rChild;
+         }
+         // Aborting the sort if parent value in lesser than or equal to left child's value
+         if (pValue.CompareTo (lValue) <= 0) break;
+         // Swapping the values of left child and parent
+         (mElements[lChild], mElements[parent]) = (pValue, lValue);
+         parent = lChild;
       }
       return element;
    }

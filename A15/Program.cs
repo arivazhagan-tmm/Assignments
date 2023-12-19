@@ -27,15 +27,21 @@ public class Program {
          if (num <= 100) {
             queue.Enqueue (num);
             list.Add (num);
+            list.Sort ();
             ForegroundColor = ConsoleColor.Green;
             Write ($"Enqueued: {num}");
             WriteLine ();
          } else if (queue.Count > 0) {
             ForegroundColor = ConsoleColor.Red;
             var tmp = queue.Dequeue ();
-            Write ($"Dequeued: {tmp}");
-            WriteLine ();
-            list.Remove (tmp);
+            if (list.First ().Equals (tmp)) {
+               Write ($"Dequeued: {tmp}");
+               WriteLine ();
+               list.RemoveAt (0);
+            } else {
+               Write ("Incorrect value!"); 
+               break;
+            }
          }
          ResetColor ();
       }
