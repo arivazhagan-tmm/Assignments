@@ -4,7 +4,8 @@ using static System.Console;
 using static System.ConsoleColor;
 using static System.String;
 
-var testCases = new string[] { @"D:\\\\TEST.DLL",
+var testCases = new string[] { @"D:\ETC\\NEW\IP.IO",
+                               @"D:\\\\TEST.DLL",
                                @"\\D:FILES\TEST.DLL",
                                @"D\:FILES\TEST.DLL",
                                @"D:FILES\TEST.DLL",
@@ -19,6 +20,7 @@ var testCases = new string[] { @"D:\\\\TEST.DLL",
                                @"D:\FILES\.DLL",
                                @"C:\ETC\DOCUMENTS\WORDS\" ,
                                @"D:\FILES\TEST.DLL\",
+                               @"D:\FILES\TEST.\DLL",
                                @"C:\USERS\CLEMENT\SOLUTIONFILES\EVALUATOR\\BIN\DEBUG\EVAL.DLL",
                                @"C:\ETC\DOCUMENTS\WORDS\GUIDELINES.TXT" ,
                                @"C:\USERS\CLEMENT\SOLUTIONFILES\EVALUATOR\BIN\DEBUG\EVAL.DLL",
@@ -46,36 +48,29 @@ void Print (string str, ConsoleColor color = White) {
    Action none = () => { }, todo;
    StringBuilder filePath = new (), extn = new ();
    var (directory, fileName) = (Empty, Empty);
-   bool parseFailed = false;
    foreach (var ch in str.Trim () + "~") {
-      if (parseFailed) break;
+      if (state is Z) break;
       (state, todo) = (state, ch) switch {
          (A, >= 'A' and <= 'Z') => (B, () => directory = ch.ToString ()),
          (B, ':') => (C, none),
          (C, '\\') => (D, none),
          (D, >= 'A' and <= 'Z') => (D, () => filePath.Append (ch)),
-         (D, '\\') => (D, () => {
-            parseFailed = filePath.Length > 0 && filePath[^1] is '\\';
-            filePath.Append (ch);
-         }),
-         (D, '.') => (E, () => {
+         (D or F, '\\') => (E, () => filePath.Append (ch)),
+         (E or F, >= 'A' and <= 'Z') => (F, () => filePath.Append (ch)),
+         (F, '.') => (G, () => {
             var tmp = filePath.ToString ();
-            parseFailed = !tmp.Contains ('\\');
-            if (!parseFailed) {
-               var index = tmp.LastIndexOf ('\\');
-               fileName = new string (tmp.TakeLast (tmp.Length - (index + 1)).ToArray ());
-               filePath.Remove (index, fileName.Length + 1);
-               parseFailed = fileName.Length is 0;
-            }
+            var index = tmp.LastIndexOf ('\\');
+            fileName = new string (tmp.TakeLast (tmp.Length - (index + 1)).ToArray ());
+            filePath.Remove (index, fileName.Length + 1);
          }),
-         (E, >= 'A' and <= 'Z') => (E, () => extn.Append (ch)),
-         (E, '~') => (F, none),
-         _ => (Z, () => parseFailed = true)
+         (G, >= 'A' and <= 'Z') => (G, () => extn.Append (ch)),
+         (G, '~') => (H, none),
+         _ => (Z, none)
       };
       todo ();
    }
-   if (state is not F) directory = Empty;
+   if (state is not H) directory = Empty;
    return (directory, filePath.ToString (), fileName, extn.ToString ());
 }
 
-public enum State { A, B, C, D, E, F, Z }
+public enum State { A, B, C, D, E, F, G, H, Z }
