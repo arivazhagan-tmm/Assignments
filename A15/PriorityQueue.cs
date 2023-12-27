@@ -7,54 +7,48 @@
 /// </summary>
 public class PriorityQueue<T> where T : IComparable<T> {
    #region Constructor ----------------------------------------------
-   public PriorityQueue () {
-      (mCount, mCapacity) = (0, 4);
-      mElements = new T[mCapacity];
-   }
+   public PriorityQueue () => mList = new () { default! };
    #endregion
 
    #region Methods --------------------------------------------------
    /// <summary>Adds the given element into the queue</summary>
    public void Enqueue (T t) {
-      if (mCount == mCapacity) {
-         mCapacity *= 2;
-         var tmp = new T[mCapacity];
-         for (int i = 0; i < mCount; i++) tmp[i] = mElements[i];
-         mElements = tmp;
-      }
-      mElements[mCount++] = t;
-      var rChild = mCount - 1;
-      while (rChild > 0) {
-         var lChild = rChild / 2; // Left child
-         var (lValue, rValue) = (mElements[lChild], mElements[rChild]);
-         if (rValue.CompareTo (lValue) >= 0) break;
-         (mElements[lChild], mElements[rChild]) = (rValue, lValue);
-         rChild = lChild;
+      mList.Add (t);
+      mCount++;
+      var left = mCount;
+      while (left > 0) {
+         var parent = left / 2;
+         var (pValue, lValue) = (mList[parent], mList[left]);
+         if (lValue.CompareTo (pValue) >= 0) break;
+         (mList[parent], mList[left]) = (lValue, pValue);
+         left = parent;
       }
    }
 
    /// <summary>Returns the element which is least object among the all other elements in the queue</summary>
    public T Dequeue () {
-      var (index, parent) = (--mCount, 0);
-      T element = mElements[parent];
-      mElements[parent] = mElements[index];
+      var (last, parent) = (mCount, 1);
+      T element = mList[parent];
+      mList[parent] = mList[last];
+      mCount--;
       while (true) {
          // Left child and right child
-         var (lChild, rChild) = (2 * parent, (2 * parent) + 1);
-         if (lChild > index) break;
+         var (left, right) = (2 * parent, (2 * parent) + 1);
+         if (left >= last) break;
          // value stored in parent, left child and right child
-         var (pValue, lValue, rValue) = (mElements[parent], mElements[lChild], mElements[rChild]);
+         var (pValue, lValue, rValue) = (mList[parent], mList[left], mList[right]);
          // Swapping child values
-         if (rChild <= index && rValue.CompareTo (lValue) < 0) {
-            lValue = mElements[rChild];
-            lChild = rChild;
+         if (right <= last && rValue.CompareTo (lValue) < 0) {
+            lValue = mList[right];
+            left = right;
          }
          // Aborting the sort if parent value in lesser than or equal to left child's value
          if (pValue.CompareTo (lValue) <= 0) break;
          // Swapping the values of left child and parent
-         (mElements[lChild], mElements[parent]) = (pValue, lValue);
-         parent = lChild;
+         (mList[left], mList[parent]) = (pValue, lValue);
+         parent = left;
       }
+      mList.RemoveAt (last);
       return element;
    }
    #endregion
@@ -65,11 +59,10 @@ public class PriorityQueue<T> where T : IComparable<T> {
    #endregion
 
    #region Private data ---------------------------------------------
-   T[] mElements;
+   // List to store the queue elements
+   List<T> mList;
    // Number of elements currently present in the queue
    int mCount;
-   // Current capacity of the queue
-   int mCapacity;
    #endregion
 }
 #endregion
