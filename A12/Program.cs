@@ -101,18 +101,16 @@ public class Wordle {
                if (mPtr == mCount) mGameOver = true;
                SetChar (mCircle);
             } else PrintMessage ($"{str} is not a valid word!", Yellow);
-         }
-         ,
+         },
          Backspace or LeftArrow => () => {
             if (mResponse.Count > 0 && mPtr <= mCount) {
                mOptions[mPtr - 1].Ch = mCircle;
-               PrintCharacter (mOptions[mPtr - 1]);
                SetChar (mDot);
+               PrintCharacter (mOptions[mPtr - 1]);
                mResponse.RemoveAt (mResponse.Count - 1);
                mPtr--;
             }
-         }
-         ,
+         },
          <= Z and >= A => () => {
             if (mPtr < mCount) {
                var ch = (char)key;
@@ -125,8 +123,7 @@ public class Wordle {
                   PrintCharacter (mOptions[mPtr]);
                }
             }
-         }
-         ,
+         },
          _ => () => PrintMessage ("Please enter a valid input!")
       };
       todo ();
@@ -162,7 +159,7 @@ public class Wordle {
       tmp = 65;
       /*Printing Alphabets.*/
       for (int i = 0; i < 4; i++) {
-         for (int j = 0; tmp is < 91 && j < 7; j++) {
+         for (int j = 0; tmp < 91 && j < 7; j++) {
             var ch = (char)tmp++;
             mLetters[ptr++] = new Character () { Ch = ch, X = CursorLeft, Y = CursorTop };
             Write (ch);
