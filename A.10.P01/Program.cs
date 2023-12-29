@@ -54,23 +54,25 @@ void Print (string str, ConsoleColor color = White) {
          (A, >= 'A' and <= 'Z') => (B, () => directory = ch.ToString ()),
          (B, ':') => (C, none),
          (C, '\\') => (D, none),
-         (D, >= 'A' and <= 'Z') => (D, () => filePath.Append (ch)),
-         (D or F, '\\') => (E, () => filePath.Append (ch)),
-         (E or F, >= 'A' and <= 'Z') => (F, () => filePath.Append (ch)),
-         (F, '.') => (G, () => {
-            var tmp = filePath.ToString ();
-            var index = tmp.LastIndexOf ('\\');
-            fileName = new string (tmp.TakeLast (tmp.Length - (index + 1)).ToArray ());
-            filePath.Remove (index, fileName.Length + 1);
-         }),
-         (G, >= 'A' and <= 'Z') => (G, () => extn.Append (ch)),
-         (G, '~') => (H, none),
+         (D or E, >= 'A' and <= 'Z') => (E, () => filePath.Append (ch)),
+         (E, '\\') => (F, () => filePath.Append (ch)),
+         (F or G, >= 'A' and <= 'Z') => (G, () => filePath.Append (ch)),
+         (G, '\\') => (F, () => filePath.Append (ch)),
+         (G, '.') => (H, none),
+         (H, >= 'A' and <= 'Z') => (H, () => extn.Append (ch)),
+         (H, '~') => (I, none),
          _ => (Z, none)
       };
       todo ();
    }
-   if (state is not H) directory = Empty;
+   if (state is not I) directory = Empty;
+   else {
+      var tmp = filePath.ToString ();
+      var index = tmp.LastIndexOf ('\\');
+      fileName = new string (tmp.TakeLast (tmp.Length - (index + 1)).ToArray ());
+      filePath.Remove (index, fileName.Length + 1);
+   }
    return (directory, filePath.ToString (), fileName, extn.ToString ());
 }
 
-public enum State { A, B, C, D, E, F, G, H, Z }
+public enum State { A, B, C, D, E, F, G, H, I, Z }
